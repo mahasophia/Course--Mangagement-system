@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Management System | Login</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+header{
+    background:#0077b6;
+    color:white;
+    padding:15px;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+nav h2{
+    margin-left:20px;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    margin-right:20px;
+}
+
+nav ul li{
+    margin-left:20px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:40px 20px;
+}
+
+.hero h1{
+    color:#0077b6;
+    margin-bottom:15px;
+}
+
+.hero p{
+    width:70%;
+    margin:auto;
+    color:#555;
+    line-height:1.7;
+}
+
+.login-box{
+    width:400px;
+    background:white;
+    margin:30px auto;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 10px lightgray;
+}
+
+.login-box h2{
+    text-align:center;
+    color:#0077b6;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    border:none;
+    background:#0077b6;
+    color:white;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#023e8a;
+}
+
+.links{
+    text-align:center;
+    margin-top:20px;
+}
+
+.links a{
+    text-decoration:none;
+    color:#0077b6;
+}
+
+.links p{
+    margin-top:10px;
+}
+
+footer{
+    background:#0077b6;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2>LMS</h2>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="login.html">Login</a></li>
+
+<li><a href="browse-courses.html">Courses</a></li>
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Welcome Back!</h1>
+
+<p>
+Log in to your Learning Management System account to access your enrolled
+courses, continue your learning journey, track your progress, complete
+assignments, and earn certificates.
+</p>
+
+</section>
+
+<div class="login-box">
+
+<h2>Login</h2>
+
+<form action="browse-courses.html">
+
+<label>Email Address</label>
+<input type="email" placeholder="Enter your email" required>
+
+<label>Password</label>
+<input type="password" placeholder="Enter your password" required>
+
+<button type="submit">Login</button>
+
+</form>
+
+<div class="links">
+
+<p><a href="forgot-password.html">Forgot Password?</a></p>
+
+<p>Don't have an account?
+<a href="register.html">Register Here</a></p>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>&copy; 2026 Learning Management System | All Rights Reserved</p>
+
+</footer>
+
+</body>
+</html>

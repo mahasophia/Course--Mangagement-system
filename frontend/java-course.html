@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Programming Course</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+header{
+background:#0077b6;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+.container{
+width:90%;
+max-width:1000px;
+margin:30px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 10px lightgray;
+}
+
+h1,h2{
+color:#0077b6;
+margin:15px 0;
+}
+
+.module{
+margin-top:30px;
+padding:20px;
+border:1px solid #ddd;
+border-radius:10px;
+background:#fafafa;
+}
+
+.module p{
+font-size:17px;
+line-height:1.7;
+margin:10px 0;
+}
+
+iframe{
+width:100%;
+height:350px;
+border:none;
+border-radius:8px;
+margin-top:10px;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+background:#28a745;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#218838;
+}
+
+progress{
+width:100%;
+height:30px;
+margin-top:20px;
+}
+
+#percent{
+font-size:18px;
+font-weight:bold;
+color:#0077b6;
+margin-top:10px;
+}
+
+.btn{
+display:inline-block;
+padding:12px 25px;
+background:#0077b6;
+color:white;
+text-decoration:none;
+border-radius:5px;
+margin-top:20px;
+}
+
+.btn:hover{
+background:#023e8a;
+}
+
+footer{
+background:#0077b6;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Learning Management System</h1>
+</header>
+
+<div class="container">
+
+<h1>Java Programming Course</h1>
+
+<p><b>Instructor:</b> Felix</p>
+<p><b>Duration:</b> 6 Weeks</p>
+
+<h2>Course Progress</h2>
+
+<progress id="progress" value="0" max="100"></progress>
+
+<p id="percent">0%</p>
+
+<!-- Module 1 -->
+
+<div class="module">
+
+<h2>Module 1 : Introduction to Java</h2>
+
+<p>
+Java is a high-level, object-oriented programming language.
+It is platform-independent because Java programs run on the JVM.
+Java is widely used for web applications, Android development and enterprise software.
+</p>
+
+<iframe src="https://www.youtube.com/embed/eIrMbAQSU34" allowfullscreen></iframe>
+
+<button onclick="completeModule(this)">Mark as Completed</button>
+
+</div>
+
+<!-- Module 2 -->
+
+<div class="module">
+
+<h2>Module 2 : Variables & Data Types</h2>
+
+<p>
+Variables are used to store values.
+Java supports int, float, double, char, boolean and String data types.
+</p>
+
+<iframe src="https://www.youtube.com/embed/grEKMHGYyns" allowfullscreen></iframe>
+
+<button onclick="completeModule(this)">Mark as Completed</button>
+
+</div>
+
+<!-- Module 3 -->
+
+<div class="module">
+
+<h2>Module 3 : Operators & Control Statements</h2>
+
+<p>
+Java provides arithmetic, relational, logical and assignment operators.
+Control statements include if, else, switch, for and while loops.
+</p>
+
+<iframe src="https://www.youtube.com/embed/xk4_1vDrzzo" allowfullscreen></iframe>
+
+<button onclick="completeModule(this)">Mark as Completed</button>
+
+</div>
+
+<!-- Module 4 -->
+
+<div class="module">
+
+<h2>Module 4 : Classes & Objects</h2>
+
+<p>
+Java follows Object-Oriented Programming.
+A class is a blueprint and an object is an instance of a class.
+Methods and constructors define object behavior.
+</p>
+
+<iframe src="https://www.youtube.com/embed/pTB0EiLXUC8" allowfullscreen></iframe>
+
+<button onclick="completeModule(this)">Mark as Completed</button>
+
+</div>
+
+<!-- Module 5 -->
+
+<div class="module">
+
+<h2>Module 5 : Exception Handling</h2>
+
+<p>
+Exception handling helps manage runtime errors.
+Java uses try, catch, finally, throw and throws keywords.
+</p>
+
+<iframe src="https://www.youtube.com/embed/1XAfapkBQjk" allowfullscreen></iframe>
+
+<button onclick="completeModule(this)">Mark as Completed</button>
+
+</div>
+
+<h2>Java Quiz</h2>
+
+<form>
+
+<p><b>1. Java is a ______ language.</b></p>
+<input type="radio"> Object-Oriented<br>
+<input type="radio"> Database<br>
+<input type="radio"> Spreadsheet<br><br>
+
+<p><b>2. JVM stands for?</b></p>
+<input type="radio"> Java Virtual Machine<br>
+<input type="radio"> Java Variable Method<br>
+<input type="radio"> Java Version Manager<br><br>
+
+<p><b>3. Which keyword creates an object?</b></p>
+<input type="radio"> new<br>
+<input type="radio"> object<br>
+<input type="radio"> class<br><br>
+
+<p><b>4. Which block handles exceptions?</b></p>
+<input type="radio"> catch<br>
+<input type="radio"> if<br>
+<input type="radio"> switch<br><br>
+
+<p><b>5. Java supports?</b></p>
+<input type="radio"> OOP<br>
+<input type="radio"> Networking<br>
+<input type="radio"> Both A and B<br><br>
+
+</form>
+
+<button onclick="finishCourse()">Complete Course</button>
+
+<br><br>
+
+<a href="certificate.html" class="btn" id="certificateBtn" style="display:none;">
+Download Certificate
+</a>
+
+</div>
+
+<footer>
+<p>&copy; 2026 Learning Management System | All Rights Reserved</p>
+</footer>
+
+<script>
+
+let progress = 0;
+
+function completeModule(button){
+
+if(button.disabled) return;
+
+button.disabled = true;
+
+button.innerHTML = "✅ Completed";
+
+progress += 20;
+
+document.getElementById("progress").value = progress;
+
+document.getElementById("percent").innerHTML = progress + "% Completed";
+
+}
+
+function finishCourse(){
+
+if(progress < 100){
+
+alert("Please complete all 5 modules first.");
+
+return;
+
+}
+
+alert("🎉 Congratulations! You completed the Java Course.");
+
+document.getElementById("certificateBtn").style.display = "inline-block";
+
+}
+
+</script>
+
+</body>
+</html>
