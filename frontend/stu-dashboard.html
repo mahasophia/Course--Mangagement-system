@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="notifications.html">Notifications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="login-btn" onclick="logoutStudent(); return false;">Logout</a>
+        </div>
+    </nav>
+
+    <!-- ================= DASHBOARD HEADER ================= -->
+    <div class="db-header">
+        <div class="db-header-inner">
+            <div class="db-welcome">
+                <div class="db-avatar">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <p class="db-greeting">Welcome back,</p>
+                    <h1 class="db-name" id="studentNameHeading">Student</h1>
+                    <p class="db-meta"><i class="fa-solid fa-envelope"></i> <span id="studentEmailMeta">-</span></p>
+                </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <a href="courses.html" class="db-explore-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i> Explore Courses
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="db-main">
+
+        <!-- ===== OVERALL PROGRESS ===== -->
+        <section class="db-section db-section--full" style="margin-bottom:24px;">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-bullseye"></i> Overall Completion</h2>
+            </div>
+            <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:6px 2px;">
+                <div id="overallRing" style="flex-shrink:0;"></div>
+                <div style="flex:1;min-width:220px;">
+                    <div class="course-progress-card" style="margin-bottom:0;">
+                        <div class="course-progress-card-top">
+                            <span id="overallLabel">0 of 0 courses completed</span>
+                            <small id="overallPct">0%</small>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="overallFill" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STAT CARDS ===== -->
+        <div class="db-stats-row">
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--blue"><i class="fa-solid fa-book-open"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">Enrolled Courses</span>
+                    <span class="db-stat-value" id="statEnrolled">0</span>
+                </div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--green"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">Completed</span>
+                    <span class="db-stat-value" id="statCompleted">0</span>
+                </div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--amber"><i class="fa-solid fa-spinner"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">In Progress</span>
+                    <span class="db-stat-value" id="statInProgress">0</span>
+                </div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--accent"><i class="fa-solid fa-certificate"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">Certificates</span>
+                    <span class="db-stat-value" id="statCerts">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TWO COLUMN LAYOUT ===== -->
+        <div class="db-grid">
+
+            <!-- LEFT: Learning Progress -->
+            <section class="db-section">
+                <div class="db-section-header" style="display:flex;align-items:center;justify-content:space-between;">
+                    <h2><i class="fa-solid fa-chart-line"></i> Learning Progress</h2>
+                </div>
+                <div id="inProgressList"></div>
+            </section>
+
+            <!-- RIGHT: My Courses -->
+            <section class="db-section">
+                <div class="db-section-header">
+                    <h2><i class="fa-solid fa-book-open"></i> My Courses</h2>
+                </div>
+                <div id="myCoursesList"></div>
+            </section>
+
+        </div>
+
+        <!-- ===== COMPLETED COURSES ===== -->
+        <section class="db-section db-section--full">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-trophy"></i> Completed Courses</h2>
+            </div>
+            <div id="completedList"></div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2026 LearnHub | Student Course Management System</p>
+    </footer>
+    <script src="course-modules.js"></script>
+    <script src="course-progress.js"></script>
+    <script>
+    function getCurrentStudent(){
+        try{
+            return JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        }catch(e){
+            return null;
+        }
+    }
+
+    function logoutStudent(){
+        localStorage.removeItem('currentStudent');
+        window.location.href = 'stu-login.html';
+    }
+
+    const currentStudent = getCurrentStudent();
+    if (!currentStudent){
+        window.location.href = 'stu-login.html';
+        throw new Error('Not logged in — redirecting to login page.');
+    }
+
+    // Only ever work with THIS student's own enrollments
+    function getEnrollments(){
+        const all = JSON.parse(localStorage.getItem('enrollments') || '[]');
+        return all.filter(en => en.email === currentStudent.email);
+    }
+
+    function saveEnrollments(thisStudentsList){
+        // Merge this student's (possibly updated) records back into the full shared list,
+        // leaving every other student's enrollments untouched.
+        const all = JSON.parse(localStorage.getItem('enrollments') || '[]');
+        const others = all.filter(en => en.email !== currentStudent.email);
+        localStorage.setItem('enrollments', JSON.stringify([...others, ...thisStudentsList]));
+    }
+
+    document.getElementById('studentNameHeading').textContent = currentStudent.name;
+    document.getElementById('studentEmailMeta').textContent    = currentStudent.email;
+
+    function emptyState(icon, title, msg, btnText){
+        return `<div class="db-empty-state">
+            <div class="db-empty-icon"><i class="fa-solid fa-${icon}"></i></div>
+            <h3>${title}</h3>
+            <p>${msg}</p>
+            <a href="courses.html" class="db-empty-btn">${btnText}</a>
+        </div>`;
+    }
+
+    // Small SVG ring showing overall completion percentage
+    function renderRing(pct){
+        const size = 108, stroke = 12, r = (size - stroke) / 2, c = 2 * Math.PI * r;
+        const offset = c - (pct / 100) * c;
+        document.getElementById('overallRing').innerHTML = `
+            <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+                <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--border)" stroke-width="${stroke}" />
+                <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--accent)" stroke-width="${stroke}"
+                    stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}"
+                    transform="rotate(-90 ${size/2} ${size/2})" />
+                <text x="${size/2}" y="${size/2 + 7}" text-anchor="middle" font-size="22" font-weight="700" fill="var(--navy)" font-family="Inter, sans-serif">${pct}%</text>
+            </svg>`;
+    }
+
+    function renderDashboard(){
+        let enrollments = getEnrollments();
+
+        // Auto-sync status: if a course's real progress hits 100%, flip it to completed
+        let changed = false;
+        enrollments.forEach(course => {
+            const pct = getCourseProgressPercent(course.courseId);
+            const shouldBeDone = pct === 100;
+            if(shouldBeDone && course.status !== 'completed'){
+                course.status = 'completed';
+                if (!course.completedDate) course.completedDate = new Date().toISOString();
+                changed = true;
+            } else if(!shouldBeDone && course.status === 'completed'){
+                // progress was reset on the course page, so un-complete it here too
+                course.status = 'in-progress';
+                changed = true;
+            }
+        });
+        if(changed) saveEnrollments(enrollments);
+
+        const inProgress  = enrollments.filter(e => e.status === 'in-progress');
+        const completed   = enrollments.filter(e => e.status === 'completed');
+
+        // Stat counts
+        document.getElementById('statEnrolled').textContent   = enrollments.length;
+        document.getElementById('statCompleted').textContent  = completed.length;
+        document.getElementById('statInProgress').textContent = inProgress.length;
+        document.getElementById('statCerts').textContent      = completed.length;
+
+        // ---- OVERALL COMPLETION RING ----
+        const overallPct = enrollments.length > 0 ? Math.round((completed.length / enrollments.length) * 100) : 0;
+        document.getElementById('overallLabel').textContent = completed.length + ' of ' + enrollments.length + ' courses completed';
+        document.getElementById('overallPct').textContent   = overallPct + '%';
+        document.getElementById('overallFill').style.width  = overallPct + '%';
+        renderRing(overallPct);
+
+        // ---- IN PROGRESS ----
+        const ipEl = document.getElementById('inProgressList');
+        if(inProgress.length === 0){
+            ipEl.innerHTML = emptyState('chart-line','No courses in progress','Once you enrol in a course, your progress will appear here.','Browse Courses');
+        } else {
+            ipEl.innerHTML = inProgress.map(course => {
+                const pct  = getCourseProgressPercent(course.courseId);
+                const link = 'course.html?course=' + encodeURIComponent(course.courseId);
+                return `<div class="db-course-item" style="flex-direction:column;align-items:stretch;gap:10px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                        <div class="db-course-item-left">
+                            <div class="db-course-item-icon"><i class="fa-solid fa-book-open"></i></div>
+                            <div>
+                                <p class="db-course-item-name">${course.courseName}</p>
+                                <p class="db-course-item-meta"><i class="fa-solid fa-user"></i> ${course.name} &nbsp;·&nbsp; <i class="fa-solid fa-id-card"></i> ${course.roll}</p>
+                            </div>
+                        </div>
+                        <a href="${link}" class="db-complete-btn" style="text-decoration:none;">
+                            <i class="fa-solid fa-play"></i> Continue
+                        </a>
+                    </div>
+                    <div>
+                        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+                        <span style="font-size:11.5px;color:var(--text-muted);">${pct}% complete</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // ---- MY COURSES (ALL) ----
+        const mcEl = document.getElementById('myCoursesList');
+        if(enrollments.length === 0){
+            mcEl.innerHTML = emptyState('book-bookmark','No courses enrolled yet','Enrol in your first course to see it listed here.','Start Learning');
+        } else {
+            mcEl.innerHTML = enrollments.map(course => {
+                const done = course.status === 'completed';
+                const pct  = getCourseProgressPercent(course.courseId);
+                return `<div class="db-course-item" style="flex-direction:column;align-items:stretch;gap:10px;">
+                    <div class="db-course-item-left">
+                        <div class="db-course-item-icon ${done ? 'db-course-item-icon--done' : ''}">
+                            <i class="fa-solid fa-${done ? 'circle-check' : 'book-open'}"></i>
+                        </div>
+                        <div>
+                            <p class="db-course-item-name">${course.courseName}</p>
+                            <span class="db-course-status ${done ? 'db-status--done' : 'db-status--progress'}">
+                                ${done ? 'Completed' : 'In Progress'}
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+                        <span style="font-size:11.5px;color:var(--text-muted);">${pct}% complete</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // ---- COMPLETED ----
+        const compEl = document.getElementById('completedList');
+        if(completed.length === 0){
+            compEl.innerHTML = emptyState('trophy','No completions yet','Courses you finish will appear here along with your certificates.','Explore Courses');
+        } else {
+            compEl.innerHTML = completed.map(course => {
+                const certLink = 'certificate.html?course=' + encodeURIComponent(course.courseId) +
+                    '&name=' + encodeURIComponent(course.name) +
+                    '&roll=' + encodeURIComponent(course.roll);
+                return `<div class="db-course-item">
+                    <div class="db-course-item-left">
+                        <div class="db-course-item-icon db-course-item-icon--done">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <p class="db-course-item-name">${course.courseName}</p>
+                            <p class="db-course-item-meta"><i class="fa-solid fa-user"></i> ${course.name} &nbsp;·&nbsp; <i class="fa-solid fa-id-card"></i> ${course.roll}</p>
+                        </div>
+                    </div>
+                    <a href="${certLink}" class="db-cert-badge" style="text-decoration:none;">
+                        <i class="fa-solid fa-certificate"></i> View Certificate
+                    </a>
+                </div>`;
+            }).join('');
+        }
+    }
+
+    renderDashboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Admin Access | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body split">
+
+    <a href="courses.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Courses</a>
+
+    <div class="split-wrapper">
+
+        <!-- ================= LEFT SIDE ================= -->
+        <div class="auth-side">
+            <div class="auth-side-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </div>
+            <h2>Confirm it's you before editing course content.</h2>
+            <p>This action changes what students see. Sign in with your admin account to continue.</p>
+            <ul class="auth-side-list">
+                <li><i class="fa-solid fa-shield-halved"></i> Secure, role-based access</li>
+                <li><i class="fa-solid fa-pen-to-square"></i> Add or edit any course</li>
+                <li><i class="fa-solid fa-book"></i> Changes reflect on the course catalog</li>
+            </ul>
+        </div>
+
+        <!-- ================= RIGHT SIDE FORM ================= -->
+        <div class="auth-form-side">
+            <div class="auth-card">
+                <div class="auth-panel active">
+                    <h1 class="auth-title">Verify Admin Access</h1>
+                    <p class="auth-subtitle">Sign in to continue editing.</p>
+
+                    <form class="auth-form" id="verifyLoginForm">
+                        <label for="adminEmail">Email Address</label>
+                        <input type="email" id="adminEmail" placeholder="admin@institute.edu" required>
+
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" placeholder="••••••••" required>
+
+                        <button type="submit" class="auth-submit">Verify & Continue</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const ADMIN_EMAIL = "admin@institute.edu";
+        const ADMIN_PASS  = "password123";
+
+        // Grab the course ID from the URL so we can forward it after login
+        const params    = new URLSearchParams(window.location.search);
+        const courseId  = params.get("course") || "";
+
+        document.getElementById("verifyLoginForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const email = document.getElementById("adminEmail").value.trim();
+            const pass  = document.getElementById("adminPassword").value;
+
+            if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+                // Forward the course ID to the edit form
+                window.location.href = "edit-course.html?course=" + courseId;
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>

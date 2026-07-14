@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub <span class="admin-tag">Admin</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin-dashboard.html" class="active-nav">Dashboard</a></li>
+            <li><a href="courses.html">View Courses Page</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="courses.html" class="login-btn" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <main class="admin-main">
+
+        <div class="admin-header">
+            <div>
+                <h1>Welcome back, Admin</h1>
+                <p>Here's what's happening across your course catalog.</p>
+            </div>
+            <a href="add-course.html" class="primary-btn admin-add-btn"><i class="fa-solid fa-plus"></i> Add New Course</a>
+        </div>
+
+        <div id="adminBanner" class="admin-banner" hidden></div>
+
+        <!-- ========== STATS ========== -->
+        <div class="admin-stats">
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon"><i class="fa-solid fa-book"></i></div>
+                <div>
+                    <h3 id="statTotalCourses">0</h3>
+                    <p>Total Courses</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon" style="background:#f0fdf4;"><i class="fa-solid fa-user-graduate" style="color:#22c55e;"></i></div>
+                <div>
+                    <h3 id="statTotalEnrolled">0</h3>
+                    <p>Total Enrolled</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon" style="background:#eff6ff;"><i class="fa-solid fa-circle-check" style="color:#3b82f6;"></i></div>
+                <div>
+                    <h3 id="statTotalCompleted">0</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card admin-stat-progress">
+                <div class="admin-stat-icon" style="background:#f5ede4;"><i class="fa-solid fa-chart-line" style="color:#9a6f49;"></i></div>
+                <div class="admin-stat-progress-body">
+                    <p>Overall Progress</p>
+                    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+                    <span id="progressPct" style="font-size:12px;color:var(--text-muted);">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== COURSES TABLE ========== -->
+        <div class="admin-table-wrap">
+            <div class="admin-table-header">
+                <h2>All Courses</h2>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th>Duration</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="coursesTableBody">
+                    <!-- rows injected by JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NEW ENROLLMENT SECTION -->
+<div class="admin-table-wrap" style="margin-top: 30px;">
+    <div class="admin-table-header">
+        <h2>Enrollment Details</h2>
+        <button class="clear-all-btn" onclick="resetEnrollments()">
+            <i class="fa-solid fa-trash"></i> Clear All
+        </button>
+    </div>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="enrollmentsTableBody">
+            <!-- Populated by JS -->
+        </tbody>
+    </table>
+</div>
+
+    </main>
+
+    <script src="course-modules.js"></script>
+    <script>
+    const BASE_COURSES = [
+        {id:"ai1",  title:"Introduction to AI",            category:"Artificial Intelligence", level:"Beginner",     duration:"8 Weeks",  rating:"4.8"},
+        {id:"ai2",  title:"Machine Perception",            category:"Artificial Intelligence", level:"Intermediate", duration:"10 Weeks", rating:"4.7"},
+        {id:"ai3",  title:"AI for Healthcare",             category:"Artificial Intelligence", level:"Advanced",     duration:"12 Weeks", rating:"4.9"},
+        {id:"ai4",  title:"Reinforcement Learning",        category:"Artificial Intelligence", level:"Advanced",     duration:"14 Weeks", rating:"4.6"},
+        {id:"ai5",  title:"Generative AI",                 category:"Artificial Intelligence", level:"Intermediate", duration:"10 Weeks", rating:"4.9"},
+        {id:"ml1",  title:"ML Fundamentals",               category:"Machine Learning",        level:"Beginner",     duration:"10 Weeks", rating:"4.8"},
+        {id:"ml2",  title:"Feature Engineering",           category:"Machine Learning",        level:"Intermediate", duration:"8 Weeks",  rating:"4.6"},
+        {id:"ml3",  title:"Deep Learning with TensorFlow", category:"Machine Learning",        level:"Advanced",     duration:"14 Weeks", rating:"4.9"},
+        {id:"ml4",  title:"ML Deployment & MLOps",         category:"Machine Learning",        level:"Advanced",     duration:"10 Weeks", rating:"4.7"}
+    ];
+
+    function levelBadge(level){
+        const cls = level==='Beginner'?'beg': level==='Intermediate'?'int':'adv';
+        return `<span class="tbl-badge tbl-badge--${cls}">${level}</span>`;
+    }
+
+    function deleteCourse(id){
+        if(!confirm('Delete this course? This cannot be undone.')) return;
+        const deleted = JSON.parse(localStorage.getItem('deletedCourses') || '[]');
+        if(!deleted.includes(id)) deleted.push(id);
+        localStorage.setItem('deletedCourses', JSON.stringify(deleted));
+        removeCourseModule(id); // clean up its content/units/video + progress data
+        render();
+    }
+
+    function resetEnrollments(){
+        if(!confirm('Clear all enrollment data? This cannot be undone.')) return;
+        localStorage.removeItem('enrollments');
+        render();
+        renderEnrollments();
+    }
+
+    function render(){
+        const newCourses  = JSON.parse(localStorage.getItem('newCourses')     || '[]');
+        const deleted     = JSON.parse(localStorage.getItem('deletedCourses') || '[]');
+        const enrollments = JSON.parse(localStorage.getItem('enrollments')    || '[]');
+
+        // Merge base + new, remove deleted, apply any edits
+        const allCourses = [...BASE_COURSES, ...newCourses]
+            .filter(c => !deleted.includes(c.id))
+            .map(c => {
+                const saved = localStorage.getItem('course_' + c.id);
+                return saved ? { ...c, ...JSON.parse(saved) } : c;
+            });
+
+        // Stats
+        const totalEnrolled  = enrollments.length;
+        const totalCompleted = enrollments.filter(e => e.status === 'completed').length;
+        const pct = totalEnrolled > 0 ? Math.round((totalCompleted / totalEnrolled) * 100) : 0;
+
+        document.getElementById('statTotalCourses').textContent  = allCourses.length;
+        document.getElementById('statTotalEnrolled').textContent  = totalEnrolled;
+        document.getElementById('statTotalCompleted').textContent = totalCompleted;
+        document.getElementById('progressFill').style.width       = pct + '%';
+        document.getElementById('progressPct').textContent        = pct + '%';
+
+        // Table
+        const tbody = document.getElementById('coursesTableBody');
+        if(allCourses.length === 0){
+            tbody.innerHTML = `<tr><td class="admin-table-empty" colspan="7">No courses found.</td></tr>`;
+            return;
+        }
+
+        // Inside the render() function
+// Remove the <td> containing the enrollments logic
+tbody.innerHTML = allCourses.map(c => {
+    return `<tr>
+        <td><strong>${c.title}</strong></td>
+        <td>${c.category}</td>
+        <td>${levelBadge(c.level)}</td>
+        <td>${c.duration}</td>
+        <td><i class="fa-solid fa-star" style="color:var(--accent);font-size:11px;margin-right:3px;"></i>${c.rating}</td>
+        <td>
+            <div class="tbl-actions">
+                <a href="edit-course-login.html?course=${c.id}" class="tbl-edit-btn">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                </a>
+                <button class="tbl-delete-btn" onclick="deleteCourse('${c.id}')">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        </td>
+    </tr>`;
+}).join('');
+    }
+
+    render();
+    function renderEnrollments() {
+        const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+        const tbody = document.getElementById('enrollmentsTableBody');
+
+        if (enrollments.length === 0) {
+            tbody.innerHTML = `<tr><td class="admin-table-empty" colspan="4">No enrollments yet.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = enrollments.map(en => {
+            const done = en.status === 'completed';
+            return `<tr>
+                <td><strong>${en.courseName}</strong></td>
+                <td>${en.name}</td>
+                <td>${en.roll}</td>
+                <td>
+                    <span class="db-course-status ${done ? 'db-status--done' : 'db-status--progress'}">
+                        ${done ? 'Completed' : 'Pending'}
+                    </span>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+    renderEnrollments();
+    </script>
+</body>
+</html>

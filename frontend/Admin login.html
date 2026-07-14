@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | Learning Management System</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#eef3f8;
+}
+
+header{
+background:#1e3a8a;
+color:white;
+padding:15px;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+nav h2{
+margin-left:20px;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+margin-right:20px;
+}
+
+nav ul li{
+margin-left:20px;
+}
+
+nav ul li a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+.hero{
+text-align:center;
+padding:40px 20px;
+}
+
+.hero h1{
+color:#1e3a8a;
+margin-bottom:15px;
+}
+
+.hero p{
+width:70%;
+margin:auto;
+color:#555;
+line-height:28px;
+}
+
+.login-box{
+width:420px;
+background:white;
+margin:30px auto;
+padding:30px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,.15);
+}
+
+.login-box h2{
+text-align:center;
+color:#1e3a8a;
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:8px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:25px;
+background:#1e3a8a;
+color:white;
+border:none;
+border-radius:5px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#172554;
+}
+
+.links{
+text-align:center;
+margin-top:20px;
+}
+
+.links a{
+text-decoration:none;
+color:#1e3a8a;
+}
+
+footer{
+background:#1e3a8a;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<h2>LMS - Admin</h2>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+<li><a href="student-login.html">Student Login</a></li>
+<li><a href="admin-login.html">Admin Login</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>Administrator Portal</h1>
+
+<p>
+Welcome to the Learning Management System Admin Portal.
+Sign in to manage students, instructors, courses, enrollments,
+learning progress, and system reports.
+</p>
+
+</section>
+
+<div class="login-box">
+
+<h2>Admin Login</h2>
+
+<form action="admin-dashboard.html">
+
+<label>Admin Email</label>
+<input type="email" placeholder="Enter admin email" required>
+
+<label>Password</label>
+<input type="password" placeholder="Enter password" required>
+
+<button type="submit">Admin Login</button>
+
+</form>
+
+<div class="links">
+
+<p><a href="forgot-password.html">Forgot Password?</a></p>
+
+</div>
+
+</div>
+
+<footer>
+
+<p>&copy; 2026 Learning Management System | Admin Portal</p>
+
+</footer>
+
+</body>
+</html>
+</html>

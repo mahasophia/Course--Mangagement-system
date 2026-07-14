@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html" class="active-nav">Courses</a></li>
+            <li id="notifNavItem"><a href="notifications.html">Notifications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="add-course-edit.html">Add Course</a></li>
+        </ul>
+        <div class="nav-buttons" id="navAuthArea">
+            <a href="login-choice.html" class="login-btn">Login / Register</a>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <section class="courses-hero">
+        <h1>Explore Our Courses</h1>
+        <p>Handpicked courses across the most in-demand tech domains — start learning today.</p>
+
+        <div class="courses-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="courseSearch" placeholder="Search courses...">
+        </div>
+    </section>
+
+    <!-- ================= COURSES CONTENT ================= -->
+    <main class="courses-main">
+
+        <!-- ========== ARTIFICIAL INTELLIGENCE ========== -->
+        <section class="course-section" data-section="ai">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <div class="section-icon"><i class="fa-solid fa-robot"></i></div>
+                    <div>
+                        <h2>Artificial Intelligence <span class="section-tag">AI</span></h2>
+                        <p class="section-count">5 Courses</p>
+                    </div>
+                </div>
+                <a href="add-course-edit.html" class="admin-section-btn">
+                    <i class="fa-solid fa-plus"></i> Add Course
+                </a>
+            </div>
+
+            <div class="courses-grid">
+
+                <div class="c-card" data-id="ai1" data-name="Introduction to AI">
+                    <div class="c-card-body">
+                        <span class="c-badge">Beginner</span>
+                        <h3>Introduction to AI</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 8 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.8</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ai1" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Dr. Alan Turing</p>
+                                <p><strong>Duration:</strong> 8 Weeks · 40 Hours</p>
+                                <p><strong>Topics:</strong> History of AI, Search Algorithms, Knowledge Representation, Expert Systems</p>
+                                <p><strong>Outcome:</strong> Understand the foundations of AI and build simple intelligent agents.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ai2" data-name="Machine Perception">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-inter">Intermediate</span>
+                        <h3>Machine Perception</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 10 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.7</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ai2" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Prof. Yann LeCun</p>
+                                <p><strong>Duration:</strong> 10 Weeks · 50 Hours</p>
+                                <p><strong>Topics:</strong> Computer Vision Basics, Image Processing, Object Detection, CNNs</p>
+                                <p><strong>Outcome:</strong> Build systems that perceive and interpret visual data.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ai3" data-name="AI for Healthcare">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-adv">Advanced</span>
+                        <h3>AI for Healthcare</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 12 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ai3" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Dr. Eric Topol</p>
+                                <p><strong>Duration:</strong> 12 Weeks · 60 Hours</p>
+                                <p><strong>Topics:</strong> Medical Imaging, Diagnostics, Drug Discovery, Ethics in Healthcare AI</p>
+                                <p><strong>Outcome:</strong> Apply AI techniques to solve real-world healthcare problems.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ai4" data-name="Reinforcement Learning">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-adv">Advanced</span>
+                        <h3>Reinforcement Learning</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 14 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.6</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ai4" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Prof. David Silver</p>
+                                <p><strong>Duration:</strong> 14 Weeks · 70 Hours</p>
+                                <p><strong>Topics:</strong> Q-Learning, Policy Gradients, Deep RL, OpenAI Gym</p>
+                                <p><strong>Outcome:</strong> Build agents that learn to make decisions through trial and reward.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ai5" data-name="Generative AI">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-inter">Intermediate</span>
+                        <h3>Generative AI</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 10 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ai5" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Dr. Ian Goodfellow</p>
+                                <p><strong>Duration:</strong> 10 Weeks · 50 Hours</p>
+                                <p><strong>Topics:</strong> GANs, VAEs, Diffusion Models, Prompt Engineering, LLMs</p>
+                                <p><strong>Outcome:</strong> Create generative models that produce text, images, and more.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========== MACHINE LEARNING ========== -->
+        <section class="course-section" data-section="ml">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <div class="section-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div>
+                        <h2>Machine Learning <span class="section-tag">ML</span></h2>
+                        <p class="section-count">4 Courses</p>
+                    </div>
+                </div>
+                <a href="add-course-edit.html" class="admin-section-btn">
+                    <i class="fa-solid fa-plus"></i> Add Course
+                </a>
+            </div>
+
+            <div class="courses-grid">
+
+                <div class="c-card" data-id="ml1" data-name="ML Fundamentals">
+                    <div class="c-card-body">
+                        <span class="c-badge">Beginner</span>
+                        <h3>ML Fundamentals</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 10 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.8</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ml1" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Dr. Andrew Ng</p>
+                                <p><strong>Duration:</strong> 10 Weeks · 50 Hours</p>
+                                <p><strong>Topics:</strong> Supervised Learning, Regression, Classification, Model Evaluation</p>
+                                <p><strong>Outcome:</strong> Understand core ML algorithms and apply them to datasets.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ml2" data-name="Feature Engineering">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-inter">Intermediate</span>
+                        <h3>Feature Engineering</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 8 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.6</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ml2" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Dr. Kaggle Team</p>
+                                <p><strong>Duration:</strong> 8 Weeks · 40 Hours</p>
+                                <p><strong>Topics:</strong> Data Cleaning, Encoding, Scaling, Dimensionality Reduction</p>
+                                <p><strong>Outcome:</strong> Prepare and transform raw data to significantly boost model performance.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ml3" data-name="Deep Learning with TensorFlow">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-adv">Advanced</span>
+                        <h3>Deep Learning with TensorFlow</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 14 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.9</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ml3" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Dr. Jeff Dean</p>
+                                <p><strong>Duration:</strong> 14 Weeks · 70 Hours</p>
+                                <p><strong>Topics:</strong> Neural Networks, CNNs, RNNs, Transfer Learning, TensorFlow 2.x</p>
+                                <p><strong>Outcome:</strong> Design and train deep neural networks for real-world problems.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="c-card" data-id="ml4" data-name="ML Deployment & MLOps">
+                    <div class="c-card-body">
+                        <span class="c-badge c-badge-adv">Advanced</span>
+                        <h3>ML Deployment & MLOps</h3>
+                        <div class="c-duration"><i class="fa-regular fa-clock"></i> 10 Weeks</div>
+                        <div class="c-meta">
+                            <span><i class="fa-solid fa-star"></i> 4.7</span>
+                        </div>
+                        <div class="c-card-actions">
+                            <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                            <a href="edit-course-login.html?course=ml4" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                        </div>
+                        <details class="c-details">
+                            <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                            <div class="c-details-body">
+                                <p><strong>Instructor:</strong> Prof. Chip Huyen</p>
+                                <p><strong>Duration:</strong> 10 Weeks · 50 Hours</p>
+                                <p><strong>Topics:</strong> Docker, FastAPI, CI/CD for ML, Monitoring, Model Drift</p>
+                                <p><strong>Outcome:</strong> Deploy and maintain ML models in production environments.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h2>LearnHub</h2>
+                <p>Your trusted online learning platform.</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <!-- ================= ENROLLMENT MODAL ================= -->
+    <div class="enroll-modal-overlay" id="enrollModalOverlay">
+        <div class="enroll-modal">
+            <button type="button" class="enroll-modal-close" onclick="closeEnrollModal()" aria-label="Close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Step 1 : Enrollment form -->
+            <div class="enroll-modal-step" id="enrollFormStep">
+                <div class="enroll-modal-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2>Enroll in Course</h2>
+                <p class="enroll-modal-course-name" id="enrollCourseName">Course Name</p>
+
+                <form id="enrollForm" onsubmit="return submitEnrollment(event)">
+                    <div class="form-group">
+                        <label for="enrollStudentName">Full Name</label>
+                        <input type="text" id="enrollStudentName" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="enrollRollNo">Roll Number</label>
+                        <input type="text" id="enrollRollNo" placeholder="Enter your roll number" required>
+                    </div>
+
+                    <p class="enroll-modal-error" id="enrollFormError"></p>
+
+                    <button type="submit" class="enroll-submit-btn">
+                        <i class="fa-solid fa-paper-plane"></i> Submit
+                    </button>
+                </form>
+            </div>
+
+            <!-- Step 2 : Success -->
+            <div class="enroll-modal-step" id="enrollSuccessStep" style="display:none;">
+                <div class="enroll-modal-icon enroll-modal-icon-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h2>Enrolled Successfully!</h2>
+                <p class="enroll-modal-success-text">
+                    Thanks, <span id="enrollSuccessName"></span> — you're now enrolled in
+                    <strong id="enrollSuccessCourse"></strong>.
+                </p>
+
+                <div class="enroll-modal-actions">
+                    <a href="#" id="startLearningBtn" class="enroll-modal-btn enroll-modal-btn-primary">
+                        <i class="fa-solid fa-book"></i> Start Learning Now
+                    </a>
+                    <a href="stu-dashboard.html" class="enroll-modal-btn enroll-modal-btn-secondary">
+                        <i class="fa-solid fa-gauge"></i> View Dashboard
+                    </a>
+                </div>
+                <p id="autoRedirectNote" style="font-size:12px;color:var(--text-muted);margin-top:12px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Render any courses the admin has added, into their matching section.
+    // If the admin used a brand-new category that doesn't have a section on
+    // this page yet, one is created automatically instead of the course
+    // silently failing to appear.
+    const newCourses = JSON.parse(localStorage.getItem("newCourses") || "[]");
+
+    function slugify(text){
+        return (text || 'other').toString().trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'other';
+    }
+
+    function getOrCreateSectionGrid(sectionKey, categoryLabel){
+        let sectionEl = document.querySelector('.course-section[data-section="' + sectionKey + '"]');
+        if (sectionEl) return sectionEl.querySelector('.courses-grid');
+
+        sectionEl = document.createElement('section');
+        sectionEl.className = 'course-section';
+        sectionEl.dataset.section = sectionKey;
+        sectionEl.innerHTML = `
+            <div class="section-header">
+                <div class="section-title-group">
+                    <div class="section-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <div>
+                        <h2>${categoryLabel}</h2>
+                        <p class="section-count">0 Courses</p>
+                    </div>
+                </div>
+                <a href="add-course-edit.html" class="admin-section-btn">
+                    <i class="fa-solid fa-plus"></i> Add Course
+                </a>
+            </div>
+            <div class="courses-grid"></div>`;
+
+        document.querySelector('.courses-main').appendChild(sectionEl);
+        return sectionEl.querySelector('.courses-grid');
+    }
+
+    newCourses.forEach(c => {
+        const categoryLabel = c.category || c.section || 'Other';
+        const sectionKey    = c.section || slugify(categoryLabel);
+        const section       = getOrCreateSectionGrid(sectionKey, categoryLabel);
+
+        const badgeClass = c.level === "Intermediate" ? "c-badge c-badge-inter"
+                          : c.level === "Advanced"     ? "c-badge c-badge-adv"
+                          : "c-badge";
+
+        const card = document.createElement("div");
+        card.className = "c-card";
+        card.dataset.id   = c.id;
+        card.dataset.name = c.title;
+        card.innerHTML = `
+            <div class="c-card-body">
+                <span class="${badgeClass}">${c.level}</span>
+                <h3>${c.title}</h3>
+                <div class="c-duration"><i class="fa-regular fa-clock"></i> ${c.duration.split('·')[0].trim()}</div>
+                <div class="c-meta">
+                    <span><i class="fa-solid fa-star"></i> ${c.rating}</span>
+                </div>
+                <div class="c-card-actions">
+                    <button type="button" class="enroll-btn" onclick="openEnrollModal(this)"><i class="fa-solid fa-graduation-cap"></i> Enroll</button>
+                    <a href="edit-course-login.html?course=${c.id}" class="admin-edit-btn" title="Edit Course"><i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
+                <details class="c-details">
+                    <summary class="view-details-btn"><i class="fa-solid fa-chevron-down"></i> View Details</summary>
+                    <div class="c-details-body">
+                        <p><strong>Instructor:</strong> ${c.instructor}</p>
+                        <p><strong>Duration:</strong> ${c.duration}</p>
+                        <p><strong>Topics:</strong> ${c.topics}</p>
+                        <p><strong>Outcome:</strong> ${c.outcome}</p>
+                    </div>
+                </details>
+            </div>`;
+        section.appendChild(card);
+    });
+
+    // Remove any courses the admin has deleted, then refresh each section's course count
+    const deletedCourses = JSON.parse(localStorage.getItem("deletedCourses") || "[]");
+    deletedCourses.forEach(id => {
+        const card = document.querySelector('.c-card[data-id="' + id + '"]');
+        if (card) card.remove();
+    });
+
+    document.querySelectorAll('.course-section').forEach(section => {
+        const countEl = section.querySelector('.section-count');
+        if (!countEl) return;
+        const remaining = section.querySelectorAll('.c-card').length;
+        countEl.textContent = remaining + (remaining === 1 ? " Course" : " Courses");
+    });
+
+    // Read any saved course edits from localStorage and update cards live
+    document.querySelectorAll('.c-card[data-id]').forEach(card => {
+        const id      = card.dataset.id;
+        const saved   = localStorage.getItem('course_' + id);
+        if (!saved) return;
+        const c = JSON.parse(saved);
+
+        // Title
+        if (c.title)      card.querySelector('h3').textContent = c.title;
+
+        // Duration badge
+        if (c.duration){
+            const dur = card.querySelector('.c-duration');
+            if (dur) dur.innerHTML = '<i class="fa-regular fa-clock"></i> ' + c.duration.split('·')[0].trim();
+        }
+
+        // Rating
+        if (c.rating){
+            const rat = card.querySelector('.c-meta span');
+            if (rat) rat.innerHTML = '<i class="fa-solid fa-star"></i> ' + c.rating;
+        }
+
+        // Level badge
+        if (c.level){
+            const badge = card.querySelector('.c-badge');
+            if (badge){
+                badge.textContent = c.level;
+                badge.className   = 'c-badge' +
+                    (c.level === 'Intermediate' ? ' c-badge-inter' :
+                     c.level === 'Advanced'     ? ' c-badge-adv'   : '');
+            }
+        }
+
+        // Details body — p[0]=Instructor, p[1]=Duration, p[2]=Topics, p[3]=Outcome
+        const body = card.querySelector('.c-details-body');
+        if (body){
+            const p = body.querySelectorAll('p');
+            if (p[0] && c.instructor) p[0].innerHTML = '<strong>Instructor:</strong> ' + c.instructor;
+            if (p[1] && c.duration)   p[1].innerHTML = '<strong>Duration:</strong> '   + c.duration;
+            if (p[2] && c.topics)     p[2].innerHTML = '<strong>Topics:</strong> '     + c.topics;
+            if (p[3] && c.prereqs)    p[3].innerHTML = '<strong>Prerequisites:</strong> ' + c.prereqs;
+        }
+    });
+
+    // ================= ENROLLMENT MODAL LOGIC =================
+    let currentEnrollCard = null;
+    const enrollOverlay    = document.getElementById('enrollModalOverlay');
+    const enrollFormStep   = document.getElementById('enrollFormStep');
+    const enrollSuccessStep= document.getElementById('enrollSuccessStep');
+
+    function getCurrentStudent(){
+        try{
+            return JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        }catch(e){
+            return null;
+        }
+    }
+
+    function logoutStudent(){
+        localStorage.removeItem('currentStudent');
+        window.location.href = 'stu-login.html';
+    }
+
+    (function renderNavAuth(){
+        const student = getCurrentStudent();
+        const area = document.getElementById('navAuthArea');
+        if (!area) return;
+        if (student){
+            area.innerHTML = `<a href="#" class="login-btn" onclick="logoutStudent(); return false;">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout (${student.name})
+            </a>`;
+
+            // Once logged in, swap the Notifications tab for a direct
+            // Student Dashboard link instead.
+            const notifItem = document.getElementById('notifNavItem');
+            if (notifItem){
+                notifItem.innerHTML = '<a href="stu-dashboard.html">Student Dashboard</a>';
+            }
+        }
+    })();
+
+    function openEnrollModal(btn){
+        const student = getCurrentStudent();
+        if (!student){
+            if (confirm('Please log in to enroll in a course. Go to the login page now?')){
+                window.location.href = 'stu-login.html';
+            }
+            return;
+        }
+
+        currentEnrollCard = btn.closest('.c-card');
+        const courseName  = currentEnrollCard ? currentEnrollCard.dataset.name : 'this course';
+
+        document.getElementById('enrollCourseName').textContent = courseName;
+        document.getElementById('enrollStudentName').value = student.name;
+        document.getElementById('enrollStudentName').readOnly = true;
+        document.getElementById('enrollRollNo').value = '';
+        document.getElementById('enrollFormError').textContent = '';
+
+        enrollFormStep.style.display    = 'block';
+        enrollSuccessStep.style.display = 'none';
+
+        enrollOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeEnrollModal(){
+        enrollOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    function submitEnrollment(e){
+        if (e) e.preventDefault();
+
+        const student = getCurrentStudent();
+        if (!student){
+            window.location.href = 'stu-login.html';
+            return false;
+        }
+
+        const name    = document.getElementById('enrollStudentName').value.trim();
+        const roll    = document.getElementById('enrollRollNo').value.trim();
+        const errorEl = document.getElementById('enrollFormError');
+
+        if (!name || !roll){
+            errorEl.textContent = 'Please fill in both your name and roll number.';
+            return false;
+        }
+        errorEl.textContent = '';
+
+        const courseName = currentEnrollCard ? currentEnrollCard.dataset.name : 'this course';
+        const courseId    = currentEnrollCard ? currentEnrollCard.dataset.id   : '';
+
+        // Save the enrollment record for later use (dashboard counts are not wired up yet)
+        const enrollments = JSON.parse(localStorage.getItem('enrollments') || '[]');
+
+        // Prevent this logged-in student from being enrolled in the same course twice
+        const alreadyEnrolled = enrollments.some(en =>
+            en.courseId === courseId &&
+            en.email === student.email
+        );
+
+        if (alreadyEnrolled){
+            errorEl.textContent = 'You are already enrolled in this course.';
+            return false;
+        }
+
+        enrollments.push({ courseId, courseName, name, roll, email: student.email, status: 'in-progress', date: new Date().toISOString() });
+        localStorage.setItem('enrollments', JSON.stringify(enrollments));
+
+        document.getElementById('enrollSuccessName').textContent   = name;
+        document.getElementById('enrollSuccessCourse').textContent = courseName;
+
+        enrollFormStep.style.display    = 'none';
+        enrollSuccessStep.style.display = 'block';
+
+        // Every course now uses the single dynamic course-page.html template
+        const targetPage = 'course.html?course=' + encodeURIComponent(courseId);
+
+        const startBtn = document.getElementById('startLearningBtn');
+        if (startBtn) startBtn.href = targetPage;
+
+        const note = document.getElementById('autoRedirectNote');
+        if (note) note.textContent = 'Taking you to the course in a couple of seconds...';
+
+        // Auto-redirect into the course content/video page shortly after enrolling
+        setTimeout(function () {
+            window.location.href = targetPage;
+        }, 1800);
+
+        return false;
+    }
+
+    // Close modal when clicking outside the box
+    enrollOverlay.addEventListener('click', function(e){
+        if (e.target === this) closeEnrollModal();
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && enrollOverlay.classList.contains('active')) closeEnrollModal();
+    });
+    </script>
+</body>
+</html>s

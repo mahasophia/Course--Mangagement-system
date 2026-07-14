@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html" class="active-nav">Courses</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="login-choice.html" class="login-btn">Login / Register</a>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <div class="ec-page-header">
+        <div class="ec-breadcrumb">
+            <a href="courses.html"><i class="fa-solid fa-arrow-left"></i> Back to Courses</a>
+        </div>
+        <h1 id="ecPageTitle">Edit Course</h1>
+        <p id="ecPageSubtitle">Update the details for this course.</p>
+    </div>
+
+    <!-- ================= EDIT FORM ================= -->
+    <main class="ec-main">
+        <form class="ec-form" id="editCourseForm">
+
+            <!-- ===== BASIC INFO ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-circle-info"></i> Basic Information</h2>
+                <div class="ec-grid-2">
+                    <div class="ec-field">
+                        <label for="ecTitle">Course Title</label>
+                        <input type="text" id="ecTitle" placeholder="e.g. Introduction to AI">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecInstructor">Instructor Name</label>
+                        <input type="text" id="ecInstructor" placeholder="e.g. Dr. Alan Turing">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecDuration">Duration</label>
+                        <input type="text" id="ecDuration" placeholder="e.g. 8 Weeks · 40 Hours">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecRating">Rating</label>
+                        <input type="text" id="ecRating" placeholder="e.g. 4.8">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecLevel">Difficulty Level</label>
+                        <select id="ecLevel">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecSection">Section / Category</label>
+                        <select id="ecSection">
+                            <option value="ai">Artificial Intelligence</option>
+                            <option value="ml">Machine Learning</option>
+                            <option value="ds">Data Science</option>
+                            <option value="nlp">Natural Language Processing</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== COURSE IMAGE ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-image"></i> Course Image</h2>
+                <div class="ec-grid-2">
+                    <div class="ec-field">
+                        <label for="ecImage">Image URL</label>
+                        <input type="text" id="ecImage" placeholder="https://...">
+                    </div>
+                    <div class="ec-img-preview">
+                        <img id="ecImgPreview" src="" alt="Preview">
+                        <span id="ecImgPlaceholder"><i class="fa-solid fa-image"></i> Preview</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== WHAT YOU'LL LEARN ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-bullseye"></i> What You'll Learn</h2>
+                <div class="ec-learn-list" id="ecLearnList"></div>
+                <button type="button" class="ec-add-btn" onclick="addLearnItem()">
+                    <i class="fa-solid fa-plus"></i> Add Learning Outcome
+                </button>
+            </div>
+
+            <!-- ===== TOPICS COVERED ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-list-check"></i> Topics Covered</h2>
+                <div class="ec-field">
+                    <label for="ecTopics">Topics <span class="ec-hint">(comma separated)</span></label>
+                    <input type="text" id="ecTopics" placeholder="e.g. CNNs, RNNs, Transfer Learning">
+                </div>
+            </div>
+
+            <!-- ===== PREREQUISITES ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-circle-check"></i> Prerequisites</h2>
+                <div class="ec-field">
+                    <label for="ecPrereqs">Prerequisites</label>
+                    <textarea id="ecPrereqs" rows="2" placeholder="e.g. Basic Python and high school mathematics required."></textarea>
+                </div>
+            </div>
+
+            <!-- ===== ACTIONS ===== -->
+            <div class="ec-actions">
+                <button type="submit" class="ec-save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                <a href="courses.html" class="ec-cancel-btn">Cancel</a>
+                <button type="button" id="ecDeleteBtn" class="ec-delete-btn" hidden><i class="fa-solid fa-trash"></i> Delete Course</button>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div><h3>Quick Links</h3><p>Home</p><p>Courses</p><p>About</p><p>Contact</p></div>
+            <div><h3>Contact</h3><p>Email : support@learnhub.com</p><p>Phone : +91 9876543210</p></div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <script>
+    // ===================== COURSE DATA =====================
+    const COURSES = {
+        ai1:  { title:"Introduction to AI",            instructor:"Dr. Alan Turing",     duration:"8 Weeks · 40 Hours",  rating:"4.8", level:"Beginner",     section:"ai",  image:"https://picsum.photos/seed/ai1/400/220",  topics:"History of AI,Search Algorithms,Knowledge Representation,Expert Systems,AI Ethics",       prereqs:"Basic programming knowledge. No prior AI experience needed.",        learn:["Understand the history and evolution of Artificial Intelligence","Implement basic search algorithms like BFS and DFS","Apply knowledge representation techniques","Build simple rule-based expert systems","Explore real-world AI applications across industries"] },
+        ai2:  { title:"Machine Perception",            instructor:"Prof. Yann LeCun",    duration:"10 Weeks · 50 Hours", rating:"4.7", level:"Intermediate", section:"ai",  image:"https://picsum.photos/seed/ai2/400/220",  topics:"Computer Vision Basics,Image Processing,Object Detection,CNNs,Transfer Learning",          prereqs:"Python programming and basic ML knowledge required.",                learn:["Process and analyze image data using Python libraries","Implement object detection algorithms","Build Convolutional Neural Networks (CNNs) from scratch","Apply transfer learning to visual recognition tasks","Deploy a working image classification system"] },
+        ai3:  { title:"AI for Healthcare",             instructor:"Dr. Eric Topol",      duration:"12 Weeks · 60 Hours", rating:"4.9", level:"Advanced",     section:"ai",  image:"https://picsum.photos/seed/ai3/400/220",  topics:"Medical Imaging,Diagnostics,Drug Discovery,Healthcare Ethics,Clinical NLP",               prereqs:"Deep learning fundamentals and Python proficiency required.",         learn:["Apply AI to medical imaging and diagnostic workflows","Build predictive models for patient outcome analysis","Understand drug discovery pipelines powered by AI","Navigate ethics and regulations in healthcare AI","Work with real-world clinical datasets"] },
+        ai4:  { title:"Reinforcement Learning",        instructor:"Prof. David Silver",  duration:"14 Weeks · 70 Hours", rating:"4.6", level:"Advanced",     section:"ai",  image:"https://picsum.photos/seed/ai4/400/220",  topics:"Q-Learning,Policy Gradients,Deep RL,OpenAI Gym,MDPs",                                    prereqs:"Strong ML background and Python required. Linear algebra helpful.",   learn:["Understand Markov Decision Processes and reward structures","Implement Q-Learning and SARSA algorithms","Train agents using policy gradient methods","Use OpenAI Gym to simulate environments","Build a Deep RL agent that plays games end-to-end"] },
+        ai5:  { title:"Generative AI",                 instructor:"Dr. Ian Goodfellow",  duration:"10 Weeks · 50 Hours", rating:"4.9", level:"Intermediate", section:"ai",  image:"https://picsum.photos/seed/ai5/400/220",  topics:"GANs,VAEs,Diffusion Models,Prompt Engineering,LLMs",                                     prereqs:"Neural network fundamentals and Python required.",                    learn:["Build and train Generative Adversarial Networks (GANs)","Implement Variational Autoencoders (VAEs)","Understand diffusion models behind tools like DALL·E","Master prompt engineering for LLMs","Create AI-generated text, images, and code"] },
+        ml1:  { title:"ML Fundamentals",               instructor:"Dr. Andrew Ng",       duration:"10 Weeks · 50 Hours", rating:"4.8", level:"Beginner",     section:"ml",  image:"https://picsum.photos/seed/ml1/400/220",  topics:"Supervised Learning,Regression,Classification,Model Evaluation,scikit-learn",            prereqs:"Basic Python and high school mathematics required.",                  learn:["Understand supervised vs unsupervised learning","Build regression and classification models","Evaluate models using cross-validation and metrics","Tune hyperparameters for better performance","Apply scikit-learn to real datasets"] },
+        ml2:  { title:"Feature Engineering",           instructor:"Kaggle Team",         duration:"8 Weeks · 40 Hours",  rating:"4.6", level:"Intermediate", section:"ml",  image:"https://picsum.photos/seed/ml2/400/220",  topics:"Data Cleaning,Encoding,Scaling,PCA,Feature Selection",                                   prereqs:"ML Fundamentals and Pandas knowledge required.",                     learn:["Clean messy datasets and handle missing values","Encode categorical variables effectively","Scale and normalize numerical features","Reduce dimensionality using PCA and more","Select the most impactful features for your model"] },
+        ml3:  { title:"Deep Learning with TensorFlow", instructor:"Dr. Jeff Dean",       duration:"14 Weeks · 70 Hours", rating:"4.9", level:"Advanced",     section:"ml",  image:"https://picsum.photos/seed/ml3/400/220",  topics:"Neural Networks,CNNs,RNNs,Transfer Learning,TensorFlow 2.x",                            prereqs:"Solid ML background and Python required. Calculus helpful.",          learn:["Design and train deep neural networks with TensorFlow 2.x","Build CNNs for image tasks and RNNs for sequences","Apply transfer learning to save training time","Use Keras for rapid model prototyping","Save, load and serve models for production"] },
+        ml4:  { title:"ML Deployment & MLOps",         instructor:"Prof. Chip Huyen",    duration:"10 Weeks · 50 Hours", rating:"4.7", level:"Advanced",     section:"ml",  image:"https://picsum.photos/seed/ml4/400/220",  topics:"Docker,FastAPI,CI/CD for ML,Monitoring,MLflow",                                          prereqs:"ML experience and basic Linux/command-line skills required.",         learn:["Package ML models into Docker containers","Build REST APIs for model serving with FastAPI","Set up CI/CD pipelines for automated retraining","Monitor live models for drift and degradation","Use MLflow for experiment tracking and versioning"] },
+        ds1:  { title:"Python for Data Science",       instructor:"Dr. Wes McKinney",    duration:"8 Weeks · 40 Hours",  rating:"4.8", level:"Beginner",     section:"ds",  image:"https://picsum.photos/seed/ds1/400/220",  topics:"NumPy,Pandas,Matplotlib,Seaborn,Data Wrangling",                                         prereqs:"Basic Python programming. No data science experience needed.",        learn:["Manipulate datasets efficiently with Pandas","Perform numerical computing with NumPy","Visualize data with Matplotlib and Seaborn","Clean and wrangle messy real-world data","Derive actionable insights from raw datasets"] },
+        ds2:  { title:"Data Visualization",            instructor:"Prof. Edward Tufte",  duration:"6 Weeks · 30 Hours",  rating:"4.7", level:"Intermediate", section:"ds",  image:"https://picsum.photos/seed/ds2/400/220",  topics:"Tableau,Power BI,Plotly,Dashboards,Storytelling",                                        prereqs:"Basic data analysis skills and familiarity with spreadsheets.",       learn:["Create interactive dashboards using Plotly and Tableau","Tell compelling data stories for business audiences","Choose the right chart type for every dataset","Design Power BI reports from scratch","Publish and share live dashboards online"] },
+        ds3:  { title:"Statistics for Data Science",   instructor:"Dr. John Ioannidis",  duration:"8 Weeks · 40 Hours",  rating:"4.6", level:"Beginner",     section:"ds",  image:"https://picsum.photos/seed/ds3/400/220",  topics:"Probability,Hypothesis Testing,Distributions,Bayesian Thinking,statsmodels",            prereqs:"High school math. Basic Python is a plus.",                           learn:["Understand probability theory and distributions","Conduct and interpret hypothesis tests","Apply Bayesian thinking to real problems","Use statistical tools in Python (scipy, statsmodels)","Avoid common statistical errors and biases"] },
+        ds4:  { title:"Big Data with Spark",           instructor:"Prof. Matei Zaharia", duration:"12 Weeks · 60 Hours", rating:"4.8", level:"Advanced",     section:"ds",  image:"https://picsum.photos/seed/ds4/400/220",  topics:"Hadoop,PySpark,Spark SQL,Streaming,Cluster Computing",                                   prereqs:"Python and SQL proficiency. Linux basics helpful.",                   learn:["Set up and navigate Hadoop distributed file system","Write PySpark jobs to process terabyte-scale data","Query big data with Spark SQL","Build real-time streaming pipelines","Optimize cluster performance for production workloads"] },
+        nlp1: { title:"NLP Foundations",               instructor:"Dr. Dan Jurafsky",    duration:"8 Weeks · 40 Hours",  rating:"4.7", level:"Beginner",     section:"nlp", image:"https://picsum.photos/seed/nlp1/400/220", topics:"Tokenization,POS Tagging,NER,NLTK,spaCy",                                                prereqs:"Python basics required. No linguistics background needed.",           learn:["Tokenize and preprocess raw text data","Perform POS tagging and dependency parsing","Extract named entities from documents","Use NLTK and spaCy for text processing pipelines","Build a basic text classification model"] },
+        nlp2: { title:"Transformers & BERT",           instructor:"Dr. Jacob Devlin",    duration:"12 Weeks · 60 Hours", rating:"4.9", level:"Advanced",     section:"nlp", image:"https://picsum.photos/seed/nlp2/400/220", topics:"Attention Mechanism,BERT,GPT,Fine-tuning,Hugging Face",                                  prereqs:"Deep learning and NLP fundamentals required.",                       learn:["Understand self-attention and transformer architecture","Fine-tune BERT for classification and QA tasks","Work with GPT models for text generation","Use Hugging Face Transformers library end-to-end","Deploy a transformer model as a REST API"] },
+        nlp3: { title:"Sentiment Analysis",            instructor:"Prof. Bing Liu",      duration:"8 Weeks · 40 Hours",  rating:"4.6", level:"Intermediate", section:"nlp", image:"https://picsum.photos/seed/nlp3/400/220", topics:"Lexicon Methods,VADER,Deep Learning for Sentiment,Opinion Mining",                        prereqs:"NLP Foundations and basic ML knowledge required.",                   learn:["Classify text as positive, negative, or neutral","Use lexicon-based and ML-based approaches","Analyze product reviews and social media data","Build aspect-level sentiment classifiers","Visualize sentiment trends over time"] },
+        nlp4: { title:"Chatbot Development",           instructor:"Rasa Team",           duration:"10 Weeks · 50 Hours", rating:"4.8", level:"Intermediate", section:"nlp", image:"https://picsum.photos/seed/nlp4/400/220", topics:"Intent Classification,Dialogue Management,Rasa,LangChain,APIs",                         prereqs:"NLP basics and Python required. REST API knowledge helpful.",         learn:["Design conversational flows and dialogue systems","Train intent classifiers and entity extractors","Build a working chatbot with Rasa Open Source","Integrate chatbots with APIs and external services","Deploy your chatbot to web and messaging platforms"] },
+    };
+
+    // Merge in any courses added via the Add Course form so they're editable too
+    const addedCourses = JSON.parse(localStorage.getItem("newCourses") || "[]");
+    addedCourses.forEach(c => {
+        COURSES[c.id] = {
+            title:      c.title,
+            instructor: c.instructor,
+            duration:   c.duration,
+            rating:     c.rating,
+            level:      c.level,
+            section:    c.section,
+            image:      c.image,
+            topics:     c.topics,
+            prereqs:    c.prereqs || "",
+            learn:      c.outcome ? [c.outcome] : []
+        };
+    });
+
+    // ===================== LOAD COURSE INTO FORM =====================
+    const params   = new URLSearchParams(window.location.search);
+    const courseId = params.get("course") || "";
+    const course   = COURSES[courseId];
+
+    if (course) {
+        document.getElementById("ecPageTitle").textContent    = "Edit: " + course.title;
+        document.getElementById("ecPageSubtitle").textContent = "Course ID: " + courseId.toUpperCase();
+        document.getElementById("ecTitle").value              = course.title;
+        document.getElementById("ecInstructor").value         = course.instructor;
+        document.getElementById("ecDuration").value           = course.duration;
+        document.getElementById("ecRating").value             = course.rating;
+        document.getElementById("ecTopics").value             = course.topics;
+        document.getElementById("ecPrereqs").value            = course.prereqs;
+        document.getElementById("ecImage").value              = course.image;
+        document.getElementById("ecImgPreview").src           = course.image;
+        document.getElementById("ecImgPreview").style.display = "block";
+        document.getElementById("ecImgPlaceholder").style.display = "none";
+
+        // Set level dropdown
+        const lvlSel = document.getElementById("ecLevel");
+        for (let o of lvlSel.options) { if (o.value === course.level) o.selected = true; }
+
+        // Set section dropdown
+        const secSel = document.getElementById("ecSection");
+        for (let o of secSel.options) { if (o.value === course.section) o.selected = true; }
+
+        // Populate learn items
+        course.learn.forEach(item => addLearnItem(item));
+
+        // Show delete button only when editing an existing course
+        document.getElementById("ecDeleteBtn").hidden = false;
+    } else {
+        // No course — blank form for adding new
+        document.getElementById("ecPageTitle").textContent    = "Add New Course";
+        document.getElementById("ecPageSubtitle").textContent = "Fill in the details below.";
+        addLearnItem();
+    }
+
+    // ===================== LEARN ITEMS =====================
+    function addLearnItem(value = "") {
+        const list = document.getElementById("ecLearnList");
+        const row  = document.createElement("div");
+        row.className = "ec-learn-row";
+        row.innerHTML = `
+            <input type="text" placeholder="e.g. Build a neural network from scratch" value="${value}">
+            <button type="button" class="ec-remove-btn" onclick="this.parentElement.remove()">
+                <i class="fa-solid fa-trash"></i>
+            </button>`;
+        list.appendChild(row);
+    }
+
+    // ===================== IMAGE PREVIEW =====================
+    document.getElementById("ecImage").addEventListener("input", function() {
+        const preview     = document.getElementById("ecImgPreview");
+        const placeholder = document.getElementById("ecImgPlaceholder");
+        if (this.value) {
+            preview.src           = this.value;
+            preview.style.display = "block";
+            placeholder.style.display = "none";
+        } else {
+            preview.style.display     = "none";
+            placeholder.style.display = "flex";
+        }
+    });
+
+    // ===================== FORM SUBMIT =====================
+    document.getElementById("editCourseForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const learnItems = [...document.querySelectorAll(".ec-learn-row input")]
+                            .map(i => i.value.trim()).filter(Boolean);
+
+        const updated = {
+            title:      document.getElementById("ecTitle").value.trim(),
+            instructor: document.getElementById("ecInstructor").value.trim(),
+            duration:   document.getElementById("ecDuration").value.trim(),
+            rating:     document.getElementById("ecRating").value.trim(),
+            level:      document.getElementById("ecLevel").value,
+            section:    document.getElementById("ecSection").value,
+            image:      document.getElementById("ecImage").value.trim(),
+            topics:     document.getElementById("ecTopics").value.trim(),
+            prereqs:    document.getElementById("ecPrereqs").value.trim(),
+            learn:      learnItems
+        };
+
+        // Save to localStorage so courses.html can read it
+        if (courseId) {
+            localStorage.setItem("course_" + courseId, JSON.stringify(updated));
+        }
+
+        alert("Changes saved successfully!\n\nCourse: " + updated.title);
+        window.location.href = "courses.html";
+    });
+
+    // ===================== DELETE COURSE =====================
+    document.getElementById("ecDeleteBtn").addEventListener("click", function() {
+        if (!courseId) return;
+
+        const courseTitle = document.getElementById("ecTitle").value.trim() || courseId.toUpperCase();
+        const confirmed = confirm("Are you sure you want to delete \"" + courseTitle + "\"?\n\nThis action cannot be undone.");
+        if (!confirmed) return;
+
+        // Track deleted course IDs so courses.html can hide them
+        const deleted = JSON.parse(localStorage.getItem("deletedCourses") || "[]");
+        if (!deleted.includes(courseId)) {
+            deleted.push(courseId);
+            localStorage.setItem("deletedCourses", JSON.stringify(deleted));
+        }
+
+        // Clean up any saved edits for this course since it's being removed
+        localStorage.removeItem("course_" + courseId);
+
+        // If this was an admin-added course, remove it from that list too
+        const remainingNew = addedCourses.filter(c => c.id !== courseId);
+        localStorage.setItem("newCourses", JSON.stringify(remainingNew));
+
+        alert("Course deleted successfully.");
+        window.location.href = "courses.html";
+    });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub <span class="admin-tag">Admin</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin-dashboard.html">Dashboard</a></li>
+            <li><a href="courses.html">View Courses Page</a></li>
+        </ul>
+
+    </nav>
+
+    <main class="admin-main admin-main-narrow">
+
+        <a href="admin-dashboard.html" class="form-back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+
+        <div class="admin-form-card">
+            <h1>Add New Course</h1>
+            <p class="admin-form-subtitle">Fill in the details below. New courses appear on the dashboard immediately.</p>
+
+            <p id="formError" class="auth-error" hidden>
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Please fill in all required fields.
+            </p>
+
+            <form id="addCourseForm" class="admin-form">
+
+                <div class="form-group form-group-full">
+                    <label for="courseName">Course Name *</label>
+                    <input type="text" id="courseName" placeholder="e.g. Computer Vision Basics" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseCategory">Category *</label>
+                    <input type="text" id="courseCategory" placeholder="e.g. Cybersecurity, Cloud Computing" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseLevel">Level *</label>
+                    <select id="courseLevel" required>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Intermediate">Intermediate</option>
+                        <option value="Advanced">Advanced</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseWeeks">Duration (Weeks) *</label>
+                    <input type="number" id="courseWeeks" min="1" placeholder="8" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseHours">Total Hours *</label>
+                    <input type="number" id="courseHours" min="1" placeholder="40" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseInstructor">Instructor *</label>
+                    <input type="text" id="courseInstructor" placeholder="e.g. Dr. Jane Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="courseRating">Rating (out of 5)</label>
+                    <input type="number" id="courseRating" min="1" max="5" step="0.1" placeholder="4.8">
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label for="courseTopics">Topics Covered *</label>
+                    <input type="text" id="courseTopics" placeholder="Comma-separated, e.g. Topic A, Topic B, Topic C" required>
+                </div>
+
+                <div class="form-group form-group-full">
+                    <label for="courseOutcome">Learning Outcome *</label>
+                    <textarea id="courseOutcome" rows="3" placeholder="What will students be able to do after this course?" required></textarea>
+                </div>
+
+                <div class="form-actions form-group-full">
+                    <a href="admin-dashboard.html" class="secondary-form-btn">Cancel</a>
+                    <button type="submit" class="primary-btn">Save Course</button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+    <script>
+    document.getElementById("addCourseForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const title      = document.getElementById("courseName").value.trim();
+        const category   = document.getElementById("courseCategory").value.trim();
+        const level      = document.getElementById("courseLevel").value;
+        const weeks      = document.getElementById("courseWeeks").value.trim();
+        const hours      = document.getElementById("courseHours").value.trim();
+        const instructor = document.getElementById("courseInstructor").value.trim();
+        const rating     = document.getElementById("courseRating").value.trim();
+        const topics     = document.getElementById("courseTopics").value.trim();
+        const outcome    = document.getElementById("courseOutcome").value.trim();
+
+        const errorEl = document.getElementById("formError");
+
+        // Validate required fields
+        if (!title || !category || !level || !weeks || !hours || !instructor || !topics || !outcome) {
+            errorEl.hidden = false;
+            errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
+            return;
+        }
+        errorEl.hidden = true;
+
+        // Turn whatever category text the admin typed into a URL/id-safe key,
+        // e.g. "Cloud Computing" -> "cloud-computing". This is what courses.html
+        // uses to group courses into a section (creating a new section
+        // automatically if this category hasn't been used before).
+        function slugify(text){
+            return (text || 'other').toString().trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'other';
+        }
+        const section = slugify(category);
+
+        // Build a unique id for this course
+        const id = "new" + Date.now();
+
+        const newCourse = {
+            id,
+            title,
+            instructor,
+            duration: weeks + " Weeks · " + hours + " Hours",
+            rating: rating || "New",
+            level,
+            category,
+            section,
+            image: "https://picsum.photos/seed/" + id + "/400/220",
+            topics,
+            prereqs: "",
+            outcome
+        };
+
+        // Save alongside any other admin-added courses
+        const newCourses = JSON.parse(localStorage.getItem("newCourses") || "[]");
+        newCourses.push(newCourse);
+        localStorage.setItem("newCourses", JSON.stringify(newCourses));
+
+        alert("Course added successfully!\n\nCourse: " + title);
+        window.location.href = "courses.html";
+    });
+    </script>
+
+</body>
+</html>

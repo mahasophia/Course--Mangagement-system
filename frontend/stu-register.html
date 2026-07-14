@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body split">
+
+    <div class="split-wrapper">
+
+        <!-- ================= LEFT SIDE CONTENT ================= -->
+        <div class="auth-side auth-side-top">
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+
+            <div class="auth-side-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </div>
+
+            <h2>Start your learning journey today.</h2>
+            <p>Create a free account and get instant access to expert-led courses, hands-on projects, and certificates.</p>
+
+            <ul class="auth-side-list">
+                <li><i class="fa-solid fa-circle-check"></i> Free access to starter courses</li>
+                <li><i class="fa-solid fa-circle-check"></i> Personalized learning dashboard</li>
+                <li><i class="fa-solid fa-circle-check"></i> Join a community of 1500+ learners</li>
+                <li><i class="fa-solid fa-circle-check"></i> Learn at your own pace, anytime</li>
+            </ul>
+
+            <div class="auth-side-stats">
+                <div>
+                    <h3>1500+</h3>
+                    <span>Students</span>
+                </div>
+                <div>
+                    <h3>120+</h3>
+                    <span>Courses</span>
+                </div>
+                <div>
+                    <h3>40+</h3>
+                    <span>Faculty</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= RIGHT SIDE FORM ================= -->
+        <div class="auth-form-side">
+            <div class="auth-card">
+                <!-- STUDENT REGISTER -->
+                <div class="auth-panel active" id="studentPanel">
+                    <h1 class="auth-title">Student Registration</h1>
+                    <p class="auth-subtitle">Create an account to start learning.</p>
+
+                    <form class="auth-form">
+                        <label for="studentUsername">Username</label>
+                        <input type="text" id="studentUsername" placeholder="johndoe23">
+
+                        <label for="studentName">Full Name</label>
+                        <input type="text" id="studentName" placeholder="John Doe">
+
+                        <label for="studentEmail">Email Address</label>
+                        <input type="email" id="studentEmail" placeholder="you@example.com">
+
+                        <label for="studentDepartment">Department</label>
+                        <input type="text" id="studentDepartment" placeholder="e.g. Computer Science">
+
+                        <label for="studentPassword">Password</label>
+                        <input type="password" id="studentPassword" placeholder="••••••••">
+
+                        <label for="studentConfirmPassword">Confirm Password</label>
+                        <input type="password" id="studentConfirmPassword" placeholder="••••••••">
+
+                        <button type="submit" class="auth-submit">Create Account</button>
+                    </form>
+
+                    <p class="auth-footer-text">Already have an account? <a href="stu-login.html">Login here</a></p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

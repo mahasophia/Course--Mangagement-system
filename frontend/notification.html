@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="notifications.html">Notifications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="login-btn" onclick="logoutStudent(); return false;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="db-header">
+        <div class="db-header-inner">
+            <div class="db-welcome">
+                <div class="db-avatar">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div>
+                    <p class="db-greeting">Stay in the loop</p>
+                    <h1 class="db-name">Notifications</h1>
+                    <p class="db-meta"><span id="unreadSummary">You're all caught up</span></p>
+                </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button type="button" class="db-explore-btn" style="background:var(--surface);color:var(--navy);border:1.5px solid var(--border);cursor:pointer;" onclick="markAllRead()">
+                    <i class="fa-solid fa-check-double"></i> Mark All as Read
+                </button>
+                <a href="stu-dashboard.html" class="db-explore-btn">
+                    <i class="fa-solid fa-gauge"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main class="db-main">
+        <section class="db-section db-section--full">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-bell"></i> All Notifications</h2>
+            </div>
+            <div id="notificationsList"></div>
+        </section>
+
+        <!-- Certificates get their own section so they don't get lost in the
+             general feed — they're the notifications students most want to
+             come back to and act on. -->
+        <section class="db-section db-section--full">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-certificate"></i> Certificates Earned</h2>
+            </div>
+            <div id="certificatesList"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <script>
+    function getCurrentStudent(){
+        try{
+            return JSON.parse(localStorage.getItem('currentStudent') || 'null');
+        }catch(e){
+            return null;
+        }
+    }
+
+    function logoutStudent(){
+        localStorage.removeItem('currentStudent');
+        window.location.href = 'stu-login.html';
+    }
+
+    const currentStudent = getCurrentStudent();
+    if (!currentStudent){
+        window.location.href = 'stu-login.html';
+        throw new Error('Not logged in — redirecting to login page.');
+    }
+
+    // Only ever work with THIS student's own enrollments
+    function getEnrollments(){
+        const all = JSON.parse(localStorage.getItem('enrollments') || '[]');
+        return all.filter(en => en.email === currentStudent.email);
+    }
+
+    // New courses are a global, admin-managed list (same source courses.html reads)
+    function getNewCourses(){
+        try{
+            return JSON.parse(localStorage.getItem('newCourses') || '[]');
+        }catch(e){
+            return [];
+        }
+    }
+
+    function getReadIds(){
+        try{
+            return JSON.parse(localStorage.getItem('notificationsRead_' + currentStudent.email) || '[]');
+        }catch(e){
+            return [];
+        }
+    }
+
+    function saveReadIds(ids){
+        localStorage.setItem('notificationsRead_' + currentStudent.email, JSON.stringify(ids));
+    }
+
+    function timeAgo(iso){
+        if (!iso) return 'New';
+        const then = new Date(iso).getTime();
+        if (isNaN(then)) return 'New';
+        const diffMs = Date.now() - then;
+        const mins  = Math.floor(diffMs / 60000);
+        const hours = Math.floor(diffMs / 3600000);
+        const days  = Math.floor(diffMs / 86400000);
+        if (mins < 1)   return 'Just now';
+        if (mins < 60)  return mins + (mins === 1 ? ' minute ago' : ' minutes ago');
+        if (hours < 24) return hours + (hours === 1 ? ' hour ago' : ' hours ago');
+        if (days < 30)  return days + (days === 1 ? ' day ago' : ' days ago');
+        return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // Build the notification feed on the fly — there's no separate
+    // "notifications" store. Items are derived from real data already
+    // sitting in localStorage: admin-added courses, and this student's
+    // own enrollment records.
+    function buildNotifications(){
+        const enrollments = getEnrollments();
+        const newCourses  = getNewCourses();
+        const items = [];
+
+        items.push({
+            id: 'welcome',
+            type: 'course',
+            icon: 'hand-sparkles',
+            title: 'Welcome to LearnHub!',
+            message: 'Browse the course catalog and enroll to start tracking your learning journey here.',
+            date: enrollments.length ? enrollments[0].date : null,
+            link: 'courses.html'
+        });
+
+        // ---- New Course Alerts ----
+        newCourses.forEach(c => {
+            const category = c.category || c.section || 'Other';
+            items.push({
+                id: 'course-' + c.id,
+                type: 'course',
+                icon: 'circle-plus',
+                title: 'New Course Added: ' + c.title,
+                message: 'A new ' + (c.level || '') + ' course in ' + category +
+                          (c.instructor ? ' — taught by ' + c.instructor : '') + '.',
+                date: c.dateAdded || null,
+                link: 'courses.html'
+            });
+        });
+
+        // ---- Enrollment Confirmations + Completion Certificates ----
+        enrollments.forEach(en => {
+            items.push({
+                id: 'enroll-' + en.courseId,
+                type: 'enrollment',
+                icon: 'graduation-cap',
+                title: 'Enrolled in ' + en.courseName,
+                message: "You successfully enrolled in this course. Jump back in whenever you're ready.",
+                date: en.date,
+                link: 'courses.html'
+            });
+
+            if (en.status === 'completed'){
+                items.push({
+                    id: 'complete-' + en.courseId,
+                    type: 'certificate',
+                    icon: 'trophy',
+                    title: 'Course Completed: ' + en.courseName,
+                    message: 'Great work! Your certificate is ready to view and download.',
+                    date: en.completedDate || en.date,
+                    link: 'certificate.html?course=' + encodeURIComponent(en.courseId) +
+                          '&name=' + encodeURIComponent(en.name) + '&roll=' + encodeURIComponent(en.roll)
+                });
+            }
+        });
+
+        // Most recent first — items with no date (e.g. new course alerts
+        // with no dateAdded) are treated as newest and sorted to the top.
+        items.sort((a, b) => {
+            const at = a.date ? new Date(a.date).getTime() : Date.now();
+            const bt = b.date ? new Date(b.date).getTime() : Date.now();
+            return bt - at;
+        });
+        return items;
+    }
+
+    function markAsRead(id){
+        const read = getReadIds();
+        if (!read.includes(id)){
+            read.push(id);
+            saveReadIds(read);
+        }
+    }
+
+    function markAllRead(){
+        const all = buildNotifications().map(n => n.id);
+        saveReadIds(all);
+        render();
+    }
+
+    function openNotification(id, link){
+        markAsRead(id);
+        if (link) window.location.href = link;
+        else render();
+    }
+
+    function notifItemHtml(n, readIds){
+        const isUnread = !readIds.includes(n.id);
+        return `<div class="db-course-item notif-item ${isUnread ? 'notif-item--unread' : ''}"
+                    onclick="openNotification('${n.id}', '${n.link || ''}')" style="cursor:pointer;">
+            <div class="db-course-item-left">
+                <div class="notif-icon-wrap type-${n.type}">
+                    <i class="fa-solid fa-${n.icon}"></i>
+                </div>
+                <div>
+                    <p class="db-course-item-name">
+                        ${n.title}
+                        ${isUnread ? '<span class="notif-dot"></span>' : ''}
+                    </p>
+                    <p class="db-course-item-meta">${n.message}</p>
+                </div>
+            </div>
+            <span style="font-size:11.5px;color:var(--text-muted);white-space:nowrap;">${timeAgo(n.date)}</span>
+        </div>`;
+    }
+
+    function render(){
+        const all = buildNotifications();
+        const readIds = getReadIds();
+
+        // Certificates get pulled out into their own section — everything
+        // else (welcome, new course alerts, enrollment confirmations) stays
+        // in the general feed.
+        const certificates   = all.filter(n => n.type === 'certificate');
+        const notifications  = all.filter(n => n.type !== 'certificate');
+
+        const unreadCount = all.filter(n => !readIds.includes(n.id)).length;
+
+        document.getElementById('unreadSummary').textContent =
+            unreadCount === 0 ? "You're all caught up" :
+            unreadCount === 1 ? '1 unread notification' :
+            unreadCount + ' unread notifications';
+
+        const listEl = document.getElementById('notificationsList');
+        if (notifications.length === 0){
+            listEl.innerHTML = `<div class="db-empty-state">
+                <div class="db-empty-icon"><i class="fa-solid fa-bell-slash"></i></div>
+                <h3>No notifications yet</h3>
+                <p>Enroll in a course to start seeing updates here.</p>
+                <a href="courses.html" class="db-empty-btn">Browse Courses</a>
+            </div>`;
+        } else {
+            listEl.innerHTML = notifications.map(n => notifItemHtml(n, readIds)).join('');
+        }
+
+        const certEl = document.getElementById('certificatesList');
+        if (certificates.length === 0){
+            certEl.innerHTML = `<div class="db-empty-state">
+                <div class="db-empty-icon"><i class="fa-solid fa-certificate"></i></div>
+                <h3>No certificates yet</h3>
+                <p>Complete a course to earn your first certificate — it'll show up here.</p>
+                <a href="stu-dashboard.html" class="db-empty-btn">View My Courses</a>
+            </div>`;
+        } else {
+            certEl.innerHTML = certificates.map(n => notifItemHtml(n, readIds)).join('');
+        }
+    }
+
+    render();
+    </script>
+</body>
+</html>
