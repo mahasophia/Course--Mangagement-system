@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="stu-dashboard">
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="notifications.html">Notifications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="login-btn" onclick="logoutStudent(); return false;">Logout</a>
+        </div>
+    </nav>
+
+    <!-- ================= DASHBOARD HEADER ================= -->
+    <div class="db-header">
+        <div class="db-header-inner">
+            <div class="db-welcome">
+                <div class="db-avatar">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <p class="db-greeting">Welcome back,</p>
+                    <h1 class="db-name" id="studentNameHeading">Student</h1>
+                    <p class="db-meta"><i class="fa-solid fa-envelope"></i> <span id="studentEmailMeta">-</span></p>
+                </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <a href="courses.html" class="db-explore-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i> Explore Courses
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="db-main">
+
+        <!-- ===== OVERALL PROGRESS ===== -->
+        <section class="db-section db-section--full" style="margin-bottom:24px;">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-bullseye"></i> Overall Completion</h2>
+            </div>
+            <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:6px 2px;">
+                <div id="overallRing" style="flex-shrink:0;"></div>
+                <div style="flex:1;min-width:220px;">
+                    <div class="course-progress-card" style="margin-bottom:0;">
+                        <div class="course-progress-card-top">
+                            <span id="overallLabel">0 of 0 courses completed</span>
+                            <small id="overallPct">0%</small>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" id="overallFill" style="width:0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STAT CARDS ===== -->
+        <div class="db-stats-row">
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--blue"><i class="fa-solid fa-book-open"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">Enrolled Courses</span>
+                    <span class="db-stat-value" id="statEnrolled">0</span>
+                </div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--green"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">Completed</span>
+                    <span class="db-stat-value" id="statCompleted">0</span>
+                </div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--amber"><i class="fa-solid fa-spinner"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">In Progress</span>
+                    <span class="db-stat-value" id="statInProgress">0</span>
+                </div>
+            </div>
+            <div class="db-stat-card">
+                <div class="db-stat-icon db-stat-icon--accent"><i class="fa-solid fa-certificate"></i></div>
+                <div class="db-stat-info">
+                    <span class="db-stat-label">Certificates</span>
+                    <span class="db-stat-value" id="statCerts">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TWO COLUMN LAYOUT ===== -->
+        <div class="db-grid">
+
+            <!-- LEFT: Learning Progress -->
+            <section class="db-section">
+                <div class="db-section-header" style="display:flex;align-items:center;justify-content:space-between;">
+                    <h2><i class="fa-solid fa-chart-line"></i> Learning Progress</h2>
+                </div>
+                <div id="inProgressList"></div>
+            </section>
+
+            <!-- RIGHT: My Courses -->
+            <section class="db-section">
+                <div class="db-section-header">
+                    <h2><i class="fa-solid fa-book-open"></i> My Courses</h2>
+                </div>
+                <div id="myCoursesList"></div>
+            </section>
+
+        </div>
+
+        <!-- ===== COMPLETED COURSES ===== -->
+        <section class="db-section db-section--full">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-trophy"></i> Completed Courses</h2>
+            </div>
+            <div id="completedList"></div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2026 LearnHub | Student Course Management System</p>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

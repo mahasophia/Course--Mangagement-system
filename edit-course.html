@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="edit-course">
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html" class="active-nav">Courses</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="login-choice.html" class="login-btn">Login / Register</a>
+        </div>
+    </nav>
+
+    <!-- ================= PAGE HEADER ================= -->
+    <div class="ec-page-header">
+        <div class="ec-breadcrumb">
+            <a href="courses.html"><i class="fa-solid fa-arrow-left"></i> Back to Courses</a>
+        </div>
+        <h1 id="ecPageTitle">Edit Course</h1>
+        <p id="ecPageSubtitle">Update the details for this course.</p>
+    </div>
+
+    <!-- ================= EDIT FORM ================= -->
+    <main class="ec-main">
+        <form class="ec-form" id="editCourseForm">
+
+            <!-- ===== BASIC INFO ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-circle-info"></i> Basic Information</h2>
+                <div class="ec-grid-2">
+                    <div class="ec-field">
+                        <label for="ecTitle">Course Title</label>
+                        <input type="text" id="ecTitle" placeholder="e.g. Introduction to AI">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecInstructor">Instructor Name</label>
+                        <input type="text" id="ecInstructor" placeholder="e.g. Dr. Alan Turing">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecDuration">Duration</label>
+                        <input type="text" id="ecDuration" placeholder="e.g. 8 Weeks · 40 Hours">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecRating">Rating</label>
+                        <input type="text" id="ecRating" placeholder="e.g. 4.8">
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecLevel">Difficulty Level</label>
+                        <select id="ecLevel">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="ec-field">
+                        <label for="ecSection">Section / Category</label>
+                        <select id="ecSection">
+                            <option value="ai">Artificial Intelligence</option>
+                            <option value="ml">Machine Learning</option>
+                            <option value="ds">Data Science</option>
+                            <option value="nlp">Natural Language Processing</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== COURSE IMAGE ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-image"></i> Course Image</h2>
+                <div class="ec-grid-2">
+                    <div class="ec-field">
+                        <label for="ecImage">Image URL</label>
+                        <input type="text" id="ecImage" placeholder="https://...">
+                    </div>
+                    <div class="ec-img-preview">
+                        <img id="ecImgPreview" src="" alt="Preview">
+                        <span id="ecImgPlaceholder"><i class="fa-solid fa-image"></i> Preview</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== WHAT YOU'LL LEARN ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-bullseye"></i> What You'll Learn</h2>
+                <div class="ec-learn-list" id="ecLearnList"></div>
+                <button type="button" class="ec-add-btn" onclick="addLearnItem()">
+                    <i class="fa-solid fa-plus"></i> Add Learning Outcome
+                </button>
+            </div>
+
+            <!-- ===== TOPICS COVERED ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-list-check"></i> Topics Covered</h2>
+                <div class="ec-field">
+                    <label for="ecTopics">Topics <span class="ec-hint">(comma separated)</span></label>
+                    <input type="text" id="ecTopics" placeholder="e.g. CNNs, RNNs, Transfer Learning">
+                </div>
+            </div>
+
+            <!-- ===== PREREQUISITES ===== -->
+            <div class="ec-section">
+                <h2><i class="fa-solid fa-circle-check"></i> Prerequisites</h2>
+                <div class="ec-field">
+                    <label for="ecPrereqs">Prerequisites</label>
+                    <textarea id="ecPrereqs" rows="2" placeholder="e.g. Basic Python and high school mathematics required."></textarea>
+                </div>
+            </div>
+
+            <!-- ===== ACTIONS ===== -->
+            <div class="ec-actions">
+                <button type="submit" class="ec-save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                <a href="courses.html" class="ec-cancel-btn">Cancel</a>
+                <button type="button" id="ecDeleteBtn" class="ec-delete-btn" hidden><i class="fa-solid fa-trash"></i> Delete Course</button>
+            </div>
+
+        </form>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div><h3>Quick Links</h3><p>Home</p><p>Courses</p><p>About</p><p>Contact</p></div>
+            <div><h3>Contact</h3><p>Email : support@learnhub.com</p><p>Phone : +91 9876543210</p></div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">© 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

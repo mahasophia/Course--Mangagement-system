@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="notifications">
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="notifications.html">Notifications</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="login-btn" onclick="logoutStudent(); return false;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="db-header">
+        <div class="db-header-inner">
+            <div class="db-welcome">
+                <div class="db-avatar">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div>
+                    <p class="db-greeting">Stay in the loop</p>
+                    <h1 class="db-name">Notifications</h1>
+                    <p class="db-meta"><span id="unreadSummary">You're all caught up</span></p>
+                </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button type="button" class="db-explore-btn" style="background:var(--surface);color:var(--navy);border:1.5px solid var(--border);cursor:pointer;" onclick="markAllRead()">
+                    <i class="fa-solid fa-check-double"></i> Mark All as Read
+                </button>
+                <a href="stu-dashboard.html" class="db-explore-btn">
+                    <i class="fa-solid fa-gauge"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <main class="db-main">
+        <section class="db-section db-section--full">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-bell"></i> All Notifications</h2>
+            </div>
+            <div id="notificationsList"></div>
+        </section>
+
+        <!-- Certificates get their own section so they don't get lost in the
+             general feed — they're the notifications students most want to
+             come back to and act on. -->
+        <section class="db-section db-section--full">
+            <div class="db-section-header">
+                <h2><i class="fa-solid fa-certificate"></i> Certificates Earned</h2>
+            </div>
+            <div id="certificatesList"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
