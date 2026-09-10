@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Course | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="course">
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="login-choice.html" class="login-btn">Logout</a>
+        </div>
+    </nav>
+
+    <div id="courseNotFound" class="db-empty-state" hidden style="margin:60px auto;">
+        <div class="db-empty-icon"><i class="fa-solid fa-circle-question"></i></div>
+        <h3>Course not found</h3>
+        <p>We couldn't find that course. It may have been removed by an admin.</p>
+        <a href="courses.html" class="db-empty-btn">Browse Courses</a>
+    </div>
+
+    <div id="courseContent" hidden>
+
+        <!-- ================= HERO HEADER ================= -->
+        <section class="course-page-hero">
+            <a href="stu-dashboard.html" class="course-back-link"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
+            <span class="course-page-category" id="coursePageCategory"></span>
+            <h1 id="coursePageTitle"></h1>
+            <p id="coursePageMeta"></p>
+        </section>
+
+        <div class="course-page-grid">
+
+            <!-- ================= MAIN COLUMN ================= -->
+            <div class="course-page-content">
+
+                <div id="courseCompleteBanner" class="video-complete-card" style="margin-bottom:22px;background:#f0fdf4;border-color:#bbf7d0;" hidden>
+                    <div class="video-complete-left" style="color:#15803d;">
+                        <i class="fa-solid fa-circle-check"></i> <span id="completeBannerText">You've completed this course. Great work!</span>
+                    </div>
+                </div>
+
+                <div class="course-overview-text" id="courseOverviewText"></div>
+
+                <!-- CONTENT-TYPE COURSE UI -->
+                <div id="contentModuleUI" hidden>
+                    <h2 class="course-section-title"><i class="fa-solid fa-list-ol"></i> Course Content</h2>
+                    <div class="unit-accordion" id="unitAccordion"></div>
+                </div>
+
+                <!-- VIDEO-TYPE COURSE UI -->
+                <div id="videoModuleUI" hidden>
+                    <h2 class="course-section-title"><i class="fa-solid fa-circle-play"></i> Course Video</h2>
+                    <div class="video-wrap">
+                        <video controls id="videoPlayer">
+                            <source id="videoSource" src="" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <p style="font-size:12px;color:var(--text-muted);margin:-14px 0 22px;">
+                        Placeholder video &mdash; update this course's videoSrc in course-modules.js (or via localStorage) when the real video is ready.
+                    </p>
+                    <div class="video-complete-card">
+                        <div class="video-complete-left">
+                            <input type="checkbox" id="videoCompleteCheck" onchange="handleVideoToggle()">
+                            I have watched and completed this course
+                        </div>
+                        <span class="db-course-status db-status--progress" id="videoStatusBadge">In Progress</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= SIDEBAR ================= -->
+            <aside class="course-sidebar">
+
+                <!-- Progress card (content courses only) -->
+                <div class="course-info-card" id="sidebarProgressCard" hidden>
+                    <h3><i class="fa-solid fa-chart-simple"></i> Your Progress</h3>
+                    <div class="course-progress-card-top">
+                        <span id="unitProgressLabel">0 / 0 units completed</span>
+                        <small id="unitProgressPct">0%</small>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="unitProgressFill" style="width:0%"></div>
+                    </div>
+                </div>
+
+                <!-- Course details -->
+                <div class="course-info-card">
+                    <h3><i class="fa-solid fa-circle-info"></i> Course Details</h3>
+                    <div class="course-info-row">
+                        <i class="fa-regular fa-clock"></i> Duration <strong id="infoDuration"></strong>
+                    </div>
+                    <div class="course-info-row">
+                        <i class="fa-solid fa-signal"></i> Level <strong id="infoLevel"></strong>
+                    </div>
+                    <div class="course-info-row">
+                        <i class="fa-solid fa-tag"></i> Category <strong id="infoCategory"></strong>
+                    </div>
+                    <div class="course-info-row">
+                        <i class="fa-solid fa-shapes"></i> Format <strong id="infoFormat"></strong>
+                    </div>
+                </div>
+
+                <!-- What you'll learn -->
+                <div class="course-info-card" id="sidebarTopicsCard" hidden>
+                    <h3><i class="fa-solid fa-graduation-cap"></i> What You'll Learn</h3>
+                    <ul class="course-topics-list" id="topicsList"></ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Registration | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body split">
+
+    <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+
+    <div class="split-wrapper">
+
+        <!-- ================= LEFT SIDE CONTENT ================= -->
+        <div class="auth-side">
+            <div class="auth-side-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>LearnHub</span>
+            </div>
+
+            <h2>Become part of the LearnHub team.</h2>
+            <p>Register as an administrator to help manage courses, students, and the overall platform experience.</p>
+
+            <ul class="auth-side-list">
+                <li><i class="fa-solid fa-shield-halved"></i> Requires a valid access code</li>
+                <li><i class="fa-solid fa-users-gear"></i> Manage students and faculty</li>
+                <li><i class="fa-solid fa-chart-line"></i> View platform-wide analytics</li>
+                <li><i class="fa-solid fa-book"></i> Approve and publish courses</li>
+            </ul>
+
+            <div class="auth-side-stats">
+                <div>
+                    <h3>1500+</h3>
+                    <span>Students</span>
+                </div>
+                <div>
+                    <h3>120+</h3>
+                    <span>Courses</span>
+                </div>
+                <div>
+                    <h3>40+</h3>
+                    <span>Faculty</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= RIGHT SIDE FORM ================= -->
+        <div class="auth-form-side">
+            <div class="auth-card">
+
+                <div class="auth-tabs">
+                    <button class="auth-tab" disabled>Student</button>
+                    <button class="auth-tab active" disabled>Admin</button>
+                </div>
+
+                <div class="auth-panel active">
+                    <h1 class="auth-title">Admin Registration</h1>
+                    <p class="auth-subtitle">Create an administrator account.</p>
+
+                    <form class="auth-form">
+                        <label for="adminName">Full Name</label>
+                        <input type="text" id="adminName" placeholder="Jane Smith">
+
+                        <label for="adminEmail">Email Address</label>
+                        <input type="email" id="adminEmail" placeholder="admin@learnhub.com">
+
+                        <label for="adminCode">Admin Access Code</label>
+                        <input type="text" id="adminCode" placeholder="Enter access code">
+
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" placeholder="••••••••">
+
+                        <label for="adminConfirmPassword">Confirm Password</label>
+                        <input type="password" id="adminConfirmPassword" placeholder="••••••••">
+
+                        <button type="submit" class="auth-submit">Create Account</button>
+                    </form>
+
+                    <p class="auth-footer-text">Already have an account? <a href="#">Login here</a></p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

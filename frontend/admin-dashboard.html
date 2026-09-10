@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="admin-dashboard">
+
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub <span class="admin-tag">Admin</span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="admin-dashboard.html" class="active-nav">Dashboard</a></li>
+            <li><a href="courses.html">View Courses Page</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="courses.html" class="login-btn" id="logoutBtn" type="button"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <main class="admin-main">
+
+        <div class="admin-header">
+            <div>
+                <h1>Welcome back, Admin</h1>
+                <p>Here's what's happening across your course catalog.</p>
+            </div>
+            <a href="add-course.html" class="primary-btn admin-add-btn"><i class="fa-solid fa-plus"></i> Add New Course</a>
+        </div>
+
+        <div id="adminBanner" class="admin-banner" hidden></div>
+
+        <!-- ========== STATS ========== -->
+        <div class="admin-stats">
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon"><i class="fa-solid fa-book"></i></div>
+                <div>
+                    <h3 id="statTotalCourses">0</h3>
+                    <p>Total Courses</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon" style="background:#f0fdf4;"><i class="fa-solid fa-user-graduate" style="color:#22c55e;"></i></div>
+                <div>
+                    <h3 id="statTotalEnrolled">0</h3>
+                    <p>Total Enrolled</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon" style="background:#eff6ff;"><i class="fa-solid fa-circle-check" style="color:#3b82f6;"></i></div>
+                <div>
+                    <h3 id="statTotalCompleted">0</h3>
+                    <p>Completed</p>
+                </div>
+            </div>
+
+            <div class="admin-stat-card admin-stat-progress">
+                <div class="admin-stat-icon" style="background:#f5ede4;"><i class="fa-solid fa-chart-line" style="color:#9a6f49;"></i></div>
+                <div class="admin-stat-progress-body">
+                    <p>Overall Progress</p>
+                    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+                    <span id="progressPct" style="font-size:12px;color:var(--text-muted);">0%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== COURSES TABLE ========== -->
+        <div class="admin-table-wrap">
+            <div class="admin-table-header">
+                <h2>All Courses</h2>
+            </div>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Course</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th>Duration</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="coursesTableBody">
+                    <!-- rows injected by JS -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NEW ENROLLMENT SECTION -->
+<div class="admin-table-wrap" style="margin-top: 30px;">
+    <div class="admin-table-header">
+        <h2>Enrollment Details</h2>
+        <button class="clear-all-btn" onclick="resetEnrollments()">
+            <i class="fa-solid fa-trash"></i> Clear All
+        </button>
+    </div>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody id="enrollmentsTableBody">
+            <!-- Populated by JS -->
+        </tbody>
+    </table>
+</div>
+
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

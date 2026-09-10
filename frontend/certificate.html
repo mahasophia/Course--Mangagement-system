@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate | LearnHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="certificate">
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>LearnHub</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="login-btn" onclick="logoutStudent(); return false;">Logout</a>
+        </div>
+    </nav>
+
+    <main class="cert-page-main">
+        <a href="stu-dashboard.html" class="course-back-link"><i class="fa-solid fa-arrow-left"></i> Back to My Dashboard</a>
+
+        <div id="notCompletedState" class="db-empty-state" hidden>
+            <div class="db-empty-icon"><i class="fa-solid fa-lock"></i></div>
+            <h3 id="notCompletedTitle">Certificate not available yet</h3>
+            <p id="notCompletedMsg">Finish all units (or the video) of this course to unlock your certificate.</p>
+            <a href="courses.html" class="db-empty-btn">Browse Courses</a>
+        </div>
+
+        <div id="certWrap" hidden>
+            <div class="cert-actions">
+                <h1 style="font-family:'Lora',serif;font-size:20px;color:var(--navy);">Your Certificate</h1>
+                <button class="primary-btn" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+            </div>
+
+            <div class="cert-frame">
+                <div class="cert-inner">
+                    <div class="cert-corner tl"></div>
+                    <div class="cert-corner tr"></div>
+                    <div class="cert-corner bl"></div>
+                    <div class="cert-corner br"></div>
+
+                    <div class="cert-logo"><i class="fa-solid fa-graduation-cap"></i> LEARNHUB</div>
+                    <p class="cert-heading">Certificate of Completion</p>
+                    <h2 class="cert-title">Awarded For Successful Completion</h2>
+
+                    <p class="cert-presented">This certificate is proudly presented to</p>
+                    <div class="cert-name" id="certStudentName">&nbsp;</div>
+
+                    <p class="cert-body-text">
+                        for successfully completing all requirements of the course
+                        <span class="cert-course-name" id="certCourseName">&nbsp;</span>
+                        on the LearnHub platform, demonstrating dedication and commitment to learning.
+                    </p>
+
+                    <div class="cert-footer-row">
+                        <div class="cert-footer-item">
+                            <div class="cert-footer-value" id="certDate">&nbsp;</div>
+                            <div class="cert-footer-line">Date Completed</div>
+                        </div>
+                        <div class="cert-footer-item">
+                            <div class="cert-footer-value" id="certRoll">&nbsp;</div>
+                            <div class="cert-footer-line">Roll Number</div>
+                        </div>
+                        <div class="cert-footer-item">
+                            <div class="cert-footer-value">LearnHub</div>
+                            <div class="cert-footer-line">Issuing Platform</div>
+                        </div>
+                    </div>
+
+                    <p class="cert-id" id="certId"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div><h2>LearnHub</h2><p>Your trusted online learning platform.</p></div>
+            <div>
+                <h3>Quick Links</h3>
+                <p>Home</p><p>Courses</p><p>About</p><p>Contact</p>
+            </div>
+            <div>
+                <h3>Contact</h3>
+                <p>Email : support@learnhub.com</p>
+                <p>Phone : +91 9876543210</p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <i class="fab fa-facebook"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-github"></i>
+            </div>
+        </div>
+        <hr>
+        <p class="copyright">&copy; 2026 LearnHub | Student Course Management System</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
