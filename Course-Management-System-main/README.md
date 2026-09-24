@@ -1,171 +1,98 @@
-# 📚 Course Management System
+🎓 Course Management System – SkillMatrix
 
-A web-based **Course Management System** developed to simplify the management of courses, students, and faculty. The system provides an intuitive interface for managing academic information, course enrollment, and student records efficiently.
+A web-based Course Management System built with React. The project is designed to help manage course-related information through a simple and user-friendly interface.
 
+✨ Features
 
-## 🚀 Features
+📚 Course management interface
 
-### 👨‍🎓 Student Module
-- Student Registration & Login
-- View Available Courses
-- Enroll in Courses
-- View Enrolled Courses
-- Update Student Profile
+👨‍🎓 Student/course-related information pages
 
-### 👨‍🏫 Faculty Module
-- Faculty Login
-- Add Course Materials
-- Manage Assigned Courses
-- View Student Enrollments
+⚛️ React-based frontend
 
-### 👨‍💼 Admin Module
-- Admin Dashboard
-- Add, Update, and Delete Courses
-- Manage Students
-- Manage Faculty
-- View System Records
+🧩 Component-based UI structure
 
----
+🧭 Navigation between application pages
 
-## 🛠️ Tech Stack
+📱 Responsive and user-friendly design
 
-### Frontend
-- HTML5
-- CSS3
-- Bootstrap
-- JavaScript
+🛠️ Technologies Used
 
+⚛️ React.js
 
-## ⚙️ Installation
+🟨 JavaScript
 
-### 1️⃣ Clone the Repository
+🌐 HTML5
 
-```bash
-git clone https://github.com/dharshini-36/Course-Management-System.git
-```
+🎨 CSS3
 
-### 2️⃣ Navigate to the Project
+⚡ Vite
 
-```bash
-cd Course-Management-System
-```
+🛣️ React Router (if enabled in the project)
 
-### 3️⃣ Create Virtual Environment (Optional)
+📁 Project Structure
 
-```bash
-python -m venv venv
-```
+Course-Management-System-SkillMatrix/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── assets/
+│   ├── App.*
+│   └── main.*
+├── package.json
+└── README.md
 
-Activate it:
+The exact folders/files may vary depending on the current project version.
 
-**Windows**
+🚀 Installation and Setup
 
-```bash
-venv\Scripts\activate
-```
+1. Clone the repository
 
-**Mac/Linux**
+git clone https://github.com/mahasophia/Course--Management-system.git
 
-```bash
-source venv/bin/activate
-```
+2. Open the project
 
-### 4️⃣ Install Dependencies
+cd Course--Management-system
 
-```bash
-pip install -r requirements.txt
-```
+3. Install dependencies
 
-### 5️⃣ Run the Application
+npm install
 
-```bash
-python app.py
-```
+4. Start the development server
 
-The application will run at:
+npm run dev
 
-```
-http://127.0.0.1:5000/
-```
+Vite will display a local URL, usually:
 
----
+http://localhost:5173/
 
-## 📸 Screenshots
+Open that URL in your browser.
 
-Add screenshots of your project here.
+📜 Available Scripts
 
-Example:
+npm run dev
 
-- Login Page
-- Student Dashboard
-- Admin Dashboard
-- Course Management
-- Enrollment Page
+Starts the development server.
 
----
+npm run build
 
-## 🎯 Key Functionalities
+Creates a production build.
 
-- User Authentication
-- Role-Based Access
-- Course Management
-- Student Enrollment
-- Faculty Management
-- Responsive Design
-- Database Integration
+npm run preview
 
----
+Previews the production build locally.
 
-## 📈 Future Enhancements
+🎯 Purpose
 
-- Email Notifications
-- Online Assignments
-- Attendance Management
-- Course Progress Tracking
-- Certificate Generation
-- Student Performance Analytics
+This project was developed as a Course Management System / SkillMatrix application using modern frontend technologies. It can be extended with features such as authentication, student management, course enrollment, skill tracking, dashboards, and backend/database integration.
 
----
+👩‍💻 Author
 
-## 🤝 Contributing
+Mahalakshmi G
 
-Contributions are welcome!
+B.Sc. Computer Science with Artificial Intelligence
 
-1. Fork the repository
-2. Create a new feature branch
+🔗 GitHub
 
-```bash
-git checkout -b feature-name
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Added new feature"
-```
-
-4. Push to GitHub
-
-```bash
-git push origin feature-name
-```
-
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is developed for educational purposes.
-
----
-
-## 👩‍💻 Author
-
-**Dharshini Natarajan**
-
-GitHub: https://github.com/dharshini-36
-
----
-
-⭐ If you found this project useful, don't forget to **Star** the repository!
+Course Management System – SkillMatrix
