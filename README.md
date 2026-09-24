@@ -65,7 +65,7 @@ npm run dev
 
 Vite will display a local URL, usually:
 
-http://localhost:5173/
+http://127.0.0.1:5500/FrontEnd/index.html
 
 Open that URL in your browser.
 
