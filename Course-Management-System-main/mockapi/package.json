@@ -1,0 +1,15 @@
+{
+  "name": "mockapi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JSON Server mock API for the Course Management System (data lives in db.json)",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3001"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
