@@ -1,0 +1,134 @@
+{
+  "students": [],
+  "admins": [
+    {
+      "id": 1,
+      "fullName": "Admin",
+      "email": "admin@institute.edu",
+      "password": "admin123"
+    }
+  ],
+  "courses": [
+    {
+      "id": "ai1",
+      "title": "Introduction to AI",
+      "category": "Artificial Intelligence",
+      "level": "Beginner",
+      "weeks": "8",
+      "hours": "40",
+      "rating": "4.8",
+      "instructor": "Dr. Alan Turing",
+      "topics": "History of AI, Search Algorithms, Knowledge Representation, Expert Systems",
+      "outcome": "Understand the foundations of AI and build simple intelligent agents."
+    },
+    {
+      "id": "ai2",
+      "title": "Machine Perception",
+      "category": "Artificial Intelligence",
+      "level": "Intermediate",
+      "weeks": "10",
+      "hours": "50",
+      "rating": "4.7",
+      "instructor": "Prof. Yann LeCun",
+      "topics": "Computer Vision Basics, Image Processing, Object Detection, CNNs",
+      "outcome": "Build systems that perceive and interpret visual data."
+    },
+    {
+      "id": "ai3",
+      "title": "AI for Healthcare",
+      "category": "Artificial Intelligence",
+      "level": "Advanced",
+      "weeks": "12",
+      "hours": "60",
+      "rating": "4.9",
+      "instructor": "Dr. Eric Topol",
+      "topics": "Medical Imaging, Diagnostics, Drug Discovery, Ethics in Healthcare AI",
+      "outcome": "Apply AI techniques to solve real-world healthcare problems."
+    },
+    {
+      "id": "ai4",
+      "title": "Reinforcement Learning",
+      "category": "Artificial Intelligence",
+      "level": "Advanced",
+      "weeks": "14",
+      "hours": "70",
+      "rating": "4.6",
+      "instructor": "Prof. David Silver",
+      "topics": "Q-Learning, Policy Gradients, Deep RL, OpenAI Gym",
+      "outcome": "Build agents that learn to make decisions through trial and reward."
+    },
+    {
+      "id": "ai5",
+      "title": "Generative AI",
+      "category": "Artificial Intelligence",
+      "level": "Intermediate",
+      "weeks": "10",
+      "hours": "50",
+      "rating": "4.9",
+      "instructor": "Dr. Ian Goodfellow",
+      "topics": "GANs, VAEs, Diffusion Models, Prompt Engineering, LLMs",
+      "outcome": "Create generative models that produce text, images, and more."
+    },
+    {
+      "id": "ml1",
+      "title": "ML Fundamentals",
+      "category": "Machine Learning",
+      "level": "Beginner",
+      "weeks": "10",
+      "hours": "50",
+      "rating": "4.8",
+      "instructor": "Dr. Andrew Ng",
+      "topics": "Supervised Learning, Regression, Classification, Model Evaluation",
+      "outcome": "Understand core ML algorithms and apply them to datasets."
+    },
+    {
+      "id": "ml2",
+      "title": "Feature Engineering",
+      "category": "Machine Learning",
+      "level": "Intermediate",
+      "weeks": "8",
+      "hours": "40",
+      "rating": "4.6",
+      "instructor": "Dr. Kaggle Team",
+      "topics": "Data Cleaning, Encoding, Scaling, Dimensionality Reduction",
+      "outcome": "Prepare and transform raw data to significantly boost model performance."
+    },
+    {
+      "id": "ml3",
+      "title": "Deep Learning with TensorFlow",
+      "category": "Machine Learning",
+      "level": "Advanced",
+      "weeks": "14",
+      "hours": "70",
+      "rating": "4.9",
+      "instructor": "Dr. Jeff Dean",
+      "topics": "Neural Networks, CNNs, RNNs, Transfer Learning, TensorFlow 2.x",
+      "outcome": "Design and train deep neural networks for real-world problems."
+    },
+    {
+      "id": "ml4",
+      "title": "ML Deployment & MLOps",
+      "category": "Machine Learning",
+      "level": "Advanced",
+      "weeks": "10",
+      "hours": "50",
+      "rating": "4.7",
+      "instructor": "Prof. Chip Huyen",
+      "topics": "Docker, FastAPI, CI/CD for ML, Monitoring, Model Drift",
+      "outcome": "Deploy and maintain ML models in production environments."
+    }
+  ],
+  "enrollments": [
+    {
+      "courseId": "ai1",
+      "courseName": "Introduction to AI",
+      "studentName": "sophia",
+      "rollNo": "e24ai024",
+      "email": "mahasophia2307@gmail.com",
+      "status": "Completed",
+      "date": "11/4/2026",
+      "id": 1,
+      "certificateId": "cert_mw1nfnoa_9qygam"
+    }
+  ]
+}
