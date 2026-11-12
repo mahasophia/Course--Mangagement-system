@@ -46,7 +46,17 @@ const courseSchema = new mongoose.Schema(
       type: String,
       enum: ["Active", "Inactive"],
       default: "Active"
-    }
+    },
+    level: {
+      type: String,
+      enum: ["Beginner", "Intermediate", "Advanced"],
+      default: "Beginner"
+    },
+    hours: { type: String, trim: true, maxlength: 20, default: "" },
+    rating: { type: String, trim: true, maxlength: 10, default: "" },
+    topics: { type: String, trim: true, maxlength: 1000, default: "" },
+    outcome: { type: String, trim: true, maxlength: 1000, default: "" },
+    prerequisites: { type: String, trim: true, maxlength: 500, default: "" }
   },
   { timestamps: true }
 );

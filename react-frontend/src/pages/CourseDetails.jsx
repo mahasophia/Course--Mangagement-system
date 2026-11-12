@@ -1,12 +1,41 @@
+import { useEffect, useState } from "react";
 import PageShell from "../components/PageShell";
 import { Link, useSearchParams } from "react-router-dom";
 import PageCss from "../components/PageCss";
-import { getCourseById } from "../data/coursesStore";
+import { getCourseByIdFromAPI, getCourseModulesFromAPI } from "../data/coursesStore";
 
 export default function CourseDetails() {
     const [searchParams] = useSearchParams();
     const courseId = searchParams.get("course") || searchParams.get("id");
-    const course = getCourseById(courseId);
+
+    const [course, setCourse] = useState(null);
+    const [modules, setModules] = useState([]);
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        let cancelled = false;
+        setLoaded(false);
+        getCourseByIdFromAPI(courseId)
+            .then((found) => { if (!cancelled) setCourse(found); })
+            .catch((error) => console.error("Could not load course:", error))
+            .finally(() => { if (!cancelled) setLoaded(true); });
+
+        // Modules/lessons are only returned to enrolled students and admins.
+        getCourseModulesFromAPI(courseId)
+            .then((list) => { if (!cancelled) setModules(list); })
+            .catch((error) => console.error("Could not load course content:", error));
+
+        return () => { cancelled = true; };
+    }, [courseId]);
+
+    if (!loaded) {
+        return (
+            <PageShell variant="student3">
+                <PageCss href="/css/course_details.css" />
+                <p style={{ margin: "60px auto", textAlign: "center" }}>Loading course...</p>
+            </PageShell>
+        );
+    }
 
     if (!course) {
         return (
@@ -50,7 +79,26 @@ export default function CourseDetails() {
                         <i className="fa-solid fa-list-ol"></i>
                         Course Content
                     </h2>
-                    {topics.length === 0 ? (
+                    {modules.length > 0 ? (
+                        <div className="unit-accordion">
+                            {modules.map((module, i) => (
+                                <details className="c-details" key={module._id || i} open={i === 0} style={{ marginBottom: "10px" }}>
+                                    <summary className="view-details-btn">
+                                        <i className="fa-solid fa-chevron-down"></i>
+                                        {module.title}
+                                    </summary>
+                                    <div className="c-details-body">
+                                        {module.description && <p>{module.description}</p>}
+                                        <ul>
+                                            {(module.lessons || []).map((lesson) => (
+                                                <li key={lesson._id || lesson.title}>{lesson.title}</li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </details>
+                            ))}
+                        </div>
+                    ) : topics.length === 0 ? (
                         <p style={{ color: "var(--text-muted)" }}>No modules listed for this course yet.</p>
                     ) : (
                         <div className="unit-accordion">

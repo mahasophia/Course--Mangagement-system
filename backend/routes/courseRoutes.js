@@ -1,10 +1,14 @@
+
 const express = require("express");
 const router = express.Router();
 
 const courseController = require("../controllers/courseController");
+const courseContentController = require("../controllers/courseContentController");
+
 const authMiddleware = require("../middleware/authMiddleware");
 const authorizeRoles = require("../middleware/roleMiddleware");
 const validateRequest = require("../middleware/validateRequest");
+
 const {
   createCourseValidation,
   updateCourseValidation,
@@ -12,13 +16,19 @@ const {
   listCoursesValidation
 } = require("../validators/courseValidators");
 
-// Public: anyone can browse courses
+// ========================================
+// PUBLIC COURSE ROUTES
+// ========================================
+
+// Get all courses
 router.get(
   "/",
   listCoursesValidation,
   validateRequest,
   courseController.getCourses
 );
+
+// Get one course
 router.get(
   "/:id",
   courseIdValidation,
@@ -26,7 +36,43 @@ router.get(
   courseController.getCourse
 );
 
-// Admin only: create / update / delete
+// ========================================
+// COURSE CONTENT ROUTES
+// ========================================
+
+// Get course content (enrolled students and admins only)
+
+const requireCourseEnrollment = require("../middleware/requireCourseEnrollment");
+
+router.get(
+  "/:courseId/content",
+  authMiddleware,
+  requireCourseEnrollment,
+  courseContentController.getCourseContent
+);
+
+
+// Add module (admin only)
+router.post(
+  "/:courseId/content/modules",
+  authMiddleware,
+  authorizeRoles("admin"),
+  courseContentController.addModule
+);
+
+// Add lesson (admin only)
+router.post(
+  "/:courseId/content/modules/:moduleId/lessons",
+  authMiddleware,
+  authorizeRoles("admin"),
+  courseContentController.addLesson
+);
+
+// ========================================
+// ADMIN COURSE MANAGEMENT ROUTES
+// ========================================
+
+// Add course
 router.post(
   "/",
   authMiddleware,
@@ -36,6 +82,7 @@ router.post(
   courseController.addCourse
 );
 
+// Update course
 router.put(
   "/:id",
   authMiddleware,
@@ -45,6 +92,7 @@ router.put(
   courseController.editCourse
 );
 
+// Delete course
 router.delete(
   "/:id",
   authMiddleware,

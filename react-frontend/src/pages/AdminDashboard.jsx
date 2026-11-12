@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PageCss from "../components/PageCss";
-import { deleteCourse, getCourses } from "../data/coursesStore";
+import { deleteCourseOnAPI, getCoursesFromAPI } from "../data/coursesStore";
 import { clearAllEnrollments, getAllEnrollments } from "../data/enrollmentsStore";
-import { apiErrorMessage } from "../services/api";
+import api, { apiErrorMessage } from "../services/api";
 
 export default function AdminDashboard() {
-    const [courses, setCourses] = useState(() => getCourses());
+    const [courses, setCourses] = useState([]);
+    const [courseRequests, setCourseRequests] = useState([]);
 
     // Read every student's enrollments (admin view isn't scoped to one student)
     const [enrollments, setEnrollments] = useState([]);
@@ -18,6 +19,40 @@ export default function AdminDashboard() {
             .catch((error) => console.error("Could not load enrollments:", apiErrorMessage(error)));
         return () => { cancelled = true; };
     }, []);
+
+    // Courses come from MongoDB through the backend.
+    useEffect(() => {
+        let cancelled = false;
+        getCoursesFromAPI()
+            .then((list) => { if (!cancelled) setCourses(list); })
+            .catch((error) => console.error("Could not load courses:", apiErrorMessage(error)));
+        return () => { cancelled = true; };
+    }, []);
+
+
+    useEffect(() => {
+        let cancelled = false;
+        api.get("/course-requests")
+            .then((response) => { if (!cancelled) setCourseRequests(response.data.data || []); })
+            .catch((error) => console.error("Could not load course requests:", apiErrorMessage(error)));
+        return () => { cancelled = true; };
+    }, []);
+
+    async function reviewRequest(id, status) {
+        const note = status === "Rejected" ? (window.prompt("Optional reason for rejection:") || "") : "";
+        try {
+            await api.patch(`/course-requests/${id}/review`, { status, adminNote: note });
+            const response = await api.get("/course-requests");
+            setCourseRequests(response.data.data || []);
+            if (status === "Approved") {
+                const updatedCourses = await getCoursesFromAPI();
+                setCourses(updatedCourses);
+                alert("Request approved. The course is now added to the catalog.");
+            } else {
+                alert("Course request rejected.");
+            }
+        } catch (error) { alert(apiErrorMessage(error)); }
+    }
 
     const totalEnrolled = enrollments.length;
     const totalCompleted = enrollments.filter((entry) => entry.status === "Completed").length;
@@ -33,10 +68,16 @@ export default function AdminDashboard() {
         }
     }
 
-    function handleDeleteCourse(id, title) {
+    async function handleDeleteCourse(id, title) {
         if (!window.confirm(`Delete "${title}"? This cannot be undone.`)) return;
-        deleteCourse(id);
-        setCourses(getCourses());
+        try {
+            await deleteCourseOnAPI(id);
+            setCourses((previous) => previous.filter((course) => course.id !== id));
+            // Enrollments for the deleted course are removed by the backend too.
+            setEnrollments((previous) => previous.filter((entry) => entry.courseId !== id));
+        } catch (error) {
+            alert(apiErrorMessage(error));
+        }
     }
 
     return (
@@ -171,6 +212,32 @@ export default function AdminDashboard() {
                                     </tr>
                                 ))
                             )}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="admin-table-wrap" style={{marginTop: "30px"}}>
+                    <div className="admin-table-header">
+                        <h2>Student Course Requests ({courseRequests.filter((item) => item.status === "Pending").length} pending)</h2>
+                    </div>
+                    <table className="admin-table">
+                        <thead><tr><th>Course</th><th>Code</th><th>Requested By</th><th>Category</th><th>Level</th><th>Status</th><th>Action</th></tr></thead>
+                        <tbody>
+                            {courseRequests.length === 0 ? (
+                                <tr><td colSpan="7" style={{textAlign: "center", padding: "24px"}}>No student course requests yet.</td></tr>
+                            ) : courseRequests.map((request) => (
+                                <tr key={request._id}>
+                                    <td>{request.courseName}</td><td>{request.courseCode}</td>
+                                    <td>{request.student?.name || request.student?.email || "Student"}<br/><small>{request.student?.email}</small></td>
+                                    <td>{request.category}</td><td>{request.level}</td><td>{request.status}</td>
+                                    <td style={{whiteSpace: "nowrap"}}>
+                                        {request.status === "Pending" ? <>
+                                            <button type="button" onClick={() => reviewRequest(request._id, "Approved")} style={{marginRight: "8px", color: "#15803d", cursor: "pointer"}}>Approve</button>
+                                            <button type="button" onClick={() => reviewRequest(request._id, "Rejected")} style={{color: "#dc2626", cursor: "pointer"}}>Reject</button>
+                                        </> : "Reviewed"}
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

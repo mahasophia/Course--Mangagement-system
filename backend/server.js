@@ -7,6 +7,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
+const { rateLimit } = require("express-rate-limit");
 
 const connectDB = require("./config/db");
 const allowedOrigins = require("./config/allowedOrigins");
@@ -18,6 +19,9 @@ const courseRoutes = require("./routes/courseRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
+const enrollmentRoutes = require("./routes/enrollmentRoutes");
+const learningProgressRoutes = require("./routes/learningProgressRoutes");
+const courseRequestRoutes = require("./routes/courseRequestRoutes");
 const notFound = require("./middleware/notFoundMiddleware");
 const errorHandler = require("./middleware/errorHandler");
 
@@ -61,8 +65,8 @@ app.get("/", (req, res) => {
 function healthCheck(req, res) {
   const dbConnected = mongoose.connection.readyState === 1;
   res.status(dbConnected ? 200 : 503).json({
-    success: dbConnected,
-    message: dbConnected ? "Backend is healthy" : "Database not connected",
+    status: dbConnected ? "ok" : "error",
+    message: dbConnected ? "API is running" : "Database not connected",
     timestamp: new Date().toISOString()
   });
 }
@@ -72,6 +76,17 @@ app.get("/api/v1/health", healthCheck);
 // -------------------------
 // API routes
 // -------------------------
+// General rate limit for every API route (health checks above are not limited).
+// Login has its own, stricter limiter in routes/authRoutes.js.
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: Number.parseInt(process.env.API_RATE_LIMIT, 10) || 300,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: { message: "Too many requests. Please try again later." }
+});
+app.use("/api", apiLimiter);
+
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/students", studentRoutes);
 app.use("/api/v1/courses", courseRoutes);
@@ -79,6 +94,9 @@ app.use("/api/courses", courseRoutes); // legacy alias kept for older clients
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/notifications", notificationRoutes);
+app.use("/api/v1/enrollments", enrollmentRoutes);
+app.use("/api/v1/progress", learningProgressRoutes);
+app.use("/api/v1/course-requests", courseRequestRoutes);
 
 // -------------------------
 // 404 + error handling (order matters: routes -> 404 -> error handler)

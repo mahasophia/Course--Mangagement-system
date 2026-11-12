@@ -41,7 +41,32 @@ const createCourseValidation = [
   body("status")
     .optional()
     .isIn(["Active", "Inactive"])
-    .withMessage("Status must be Active or Inactive")
+    .withMessage("Status must be Active or Inactive"),
+  body("level")
+    .optional()
+    .isIn(["Beginner", "Intermediate", "Advanced"])
+    .withMessage("Level must be Beginner, Intermediate or Advanced"),
+  body(["hours", "rating"])
+    .optional()
+    .isString()
+    .withMessage("Must be text")
+    .trim()
+    .isLength({ max: 20 })
+    .withMessage("Must be 20 characters or fewer"),
+  body(["topics", "outcome"])
+    .optional()
+    .isString()
+    .withMessage("Must be text")
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Must be 1000 characters or fewer"),
+  body("prerequisites")
+    .optional()
+    .isString()
+    .withMessage("Prerequisites must be text")
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage("Prerequisites must be 500 characters or fewer")
 ];
 
 const updateCourseValidation = [
@@ -61,7 +86,32 @@ const updateCourseValidation = [
   body("status")
     .optional()
     .isIn(["Active", "Inactive"])
-    .withMessage("Status must be Active or Inactive")
+    .withMessage("Status must be Active or Inactive"),
+  body("level")
+    .optional()
+    .isIn(["Beginner", "Intermediate", "Advanced"])
+    .withMessage("Level must be Beginner, Intermediate or Advanced"),
+  body(["hours", "rating"])
+    .optional()
+    .isString()
+    .withMessage("Must be text")
+    .trim()
+    .isLength({ max: 20 })
+    .withMessage("Must be 20 characters or fewer"),
+  body(["topics", "outcome"])
+    .optional()
+    .isString()
+    .withMessage("Must be text")
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Must be 1000 characters or fewer"),
+  body("prerequisites")
+    .optional()
+    .isString()
+    .withMessage("Prerequisites must be text")
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage("Prerequisites must be 500 characters or fewer")
 ];
 
 const courseIdValidation = [idParam];

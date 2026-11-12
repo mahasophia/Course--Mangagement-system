@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PageCss from "../components/PageCss";
 import { useAuth } from "../auth/AuthContext";
 import { loginStudent as verifyAccount, authErrorMessage } from "../api/authApi";
@@ -11,6 +11,7 @@ export default function AdminLogin() {
 
     const { loginAdmin } = useAuth();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -26,7 +27,11 @@ export default function AdminLogin() {
                 { ...result.student, fullName: result.student.name },
                 result.token
             );
-            navigate("/admin-dashboard");
+            const requestedPath = searchParams.get("redirect") || "/admin-dashboard";
+            const safePath = requestedPath.startsWith("/edit-course") || requestedPath === "/add-course"
+                ? requestedPath
+                : "/admin-dashboard";
+            navigate(safePath);
         } catch (error) {
             setErrorMessage(authErrorMessage(error, "Login failed. Please try again."));
         }
@@ -99,7 +104,7 @@ export default function AdminLogin() {
                                 <input
                                     type="email"
                                     id="adminEmail"
-                                    placeholder="admin@institute.edu"
+                                    placeholder="Enter admin email"
                                     value={email}
                                     onChange={(e) => { setEmail(e.target.value); setErrorMessage(""); }}
                                     required

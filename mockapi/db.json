@@ -122,13 +122,23 @@
     {
       "courseId": "ai1",
       "courseName": "Introduction to AI",
-      "studentName": "sophia",
+      "studentName": "maha",
       "rollNo": "e24ai024",
-      "email": "mahasophia2307@gmail.com",
+      "email": "mahasophia48@gmail.com",
       "status": "Completed",
-      "date": "11/4/2026",
+      "date": "11/6/2026",
       "id": 1,
-      "certificateId": "cert_mw1nfnoa_9qygam"
+      "certificateId": "cert_mw42ovqh_6kidtr"
+    },
+    {
+      "courseId": "ai2",
+      "courseName": "Machine Perception",
+      "studentName": "maha",
+      "rollNo": "e24ai024",
+      "email": "mahasophia48@gmail.com",
+      "status": "In Progress",
+      "date": "11/9/2026",
+      "id": 2
     }
   ]
 }

@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Course = require("../models/Course");
 const Enrollment = require("../models/Enrollment");
 const LearningProgress = require("../models/LearningProgress");
+const CourseContent = require("../models/CourseContent");
 
 const REQUIRED_FIELDS = [
   "courseName",
@@ -10,7 +11,17 @@ const REQUIRED_FIELDS = [
   "duration",
   "category"
 ];
-const EDITABLE_FIELDS = [...REQUIRED_FIELDS, "description", "status"];
+const EDITABLE_FIELDS = [
+  ...REQUIRED_FIELDS,
+  "description",
+  "status",
+  "level",
+  "hours",
+  "rating",
+  "topics",
+  "outcome",
+  "prerequisites"
+];
 
 // Copy only the fields a client is allowed to set (blocks mass-assignment).
 function pickCourseFields(body) {
@@ -148,7 +159,8 @@ const removeCourse = async (req, res, next) => {
 
     await Promise.all([
       Enrollment.deleteMany({ course: course._id }),
-      LearningProgress.deleteMany({ course: course._id })
+      LearningProgress.deleteMany({ course: course._id }),
+      CourseContent.deleteMany({ course: course._id })
     ]);
 
     res.status(200).json({

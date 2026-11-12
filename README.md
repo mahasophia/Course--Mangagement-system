@@ -1,208 +1,66 @@
-# 📚 Course Management System
+# SkillMatrix - Student Course Management System
 
-A web-based **Course Management System** developed to simplify the management of courses, students, and faculty. The system provides an intuitive interface for managing academic information, course enrollment, and student records efficiently.
+A full-stack course platform: students register, browse courses, enroll, learn from course content, track progress and chat; admins manage students, courses, content and enrollments.
 
+| Layer | Technology |
+| --- | --- |
+| Frontend | React (Vite), React Router, Axios, Socket.IO client |
+| Backend | Node.js, Express, JWT auth, Socket.IO |
+| Database | MongoDB (Mongoose) |
+| Hosting | Frontend on Vercel, backend on Render, database on MongoDB Atlas |
 
-## 🚀 Features
+## Project structure
+```
+backend/          Express API + Socket.IO  (see backend/README.md for every endpoint)
+react-frontend/   React app
+docs/             database-schema.md, postman/ collection
+```
 
-### 👨‍🎓 Student Module
-- Student Registration & Login
-- View Available Courses
-- Enroll in Courses
-- View Enrolled Courses
-- Update Student Profile
-
-### 👨‍🏫 Faculty Module
-- Faculty Login
-- Add Course Materials
-- Manage Assigned Courses
-- View Student Enrollments
-
-### 👨‍💼 Admin Module
-- Admin Dashboard
-- Add, Update, and Delete Courses
-- Manage Students
-- Manage Faculty
-- View System Records
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- HTML5
-- CSS3
-- Bootstrap
-- JavaScript
-
-
-## ⚙️ Installation
-
-### 1️⃣ Clone the Repository
-
+## Run locally
+**1. Backend**
 ```bash
-git clone https://github.com/dharshini-36/Course-Management-System.git
-```
-
-### 2️⃣ Navigate to the Project
-
-```bash
-cd Course-Management-System
-```
-
-### 3️⃣ Create Virtual Environment (Optional)
-
-```bash
-python -m venv venv
-```
-
-Activate it:
-
-**Windows**
-
-```bash
-venv\Scripts\activate
-```
-
-**Mac/Linux**
-
-```bash
-source venv/bin/activate
-```
-
-### 4️⃣ Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 5️⃣ Run the Application
-
-```bash
-python app.py
-```
-
-The application will run at:
-
-```
-http://127.0.0.1:5000/
-```
-
----
-
-## 📸 Screenshots
-
-Add screenshots of your project here.
-
-Example:
-
-- Login Page
-- Student Dashboard
-- Admin Dashboard
-- Course Management
-- Enrollment Page
-
----
-
-## 🎯 Key Functionalities
-
-- User Authentication
-- Role-Based Access
-- Course Management
-- Student Enrollment
-- Faculty Management
-- Responsive Design
-- Database Integration
-
----
-
-## 📈 Future Enhancements
-
-- Email Notifications
-- Online Assignments
-- Attendance Management
-- Course Progress Tracking
-- Certificate Generation
-- Student Performance Analytics
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a new feature branch
-
-```bash
-git checkout -b feature-name
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Added new feature"
-```
-
-4. Push to GitHub
-
-```bash
-git push origin feature-name
-```
-
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is developed for educational purposes.
-
----
-
-## 👩‍💻 Author
-
-**Dharshini Natarajan**
-
-GitHub: https://github.com/dharshini-36
-
----
-
-⭐ If you found this project useful, don't forget to **Star** the repository!
-
----
-
-## 🗄️ Mock API (db.json)
-
-The React app (`react-frontend/`) stores student/admin registrations, logins and
-course enrollments in `mockapi/db.json`, served by [json-server](https://github.com/typicode/json-server).
-
-Run these in two terminals:
-
-```bash
-# 1) mock API  ->  http://localhost:3001
-cd mockapi
+cd backend
 npm install
-npm start
-
-# 2) React app
+cp .env.example .env     # fill in MONGO_URI, JWT_SECRET and the admin seed values
+npm run seed             # creates the first admin account
+npm run dev              # http://localhost:5000  (health check: /api/health)
+```
+**2. Frontend**
+```bash
 cd react-frontend
 npm install
-npm run dev
+cp .env.example .env     # VITE_BACKEND_URL and VITE_SOCKET_URL (defaults point at localhost:5000)
+npm run dev              # http://localhost:5173
 ```
 
-Default admin: `admin@institute.edu` / `admin123` (admin registration access code: `SKILLMATRIX2026`).
+## Environment variables
+| Where | Variable | Purpose |
+| --- | --- | --- |
+| backend | `MONGO_URI` | Atlas / local MongoDB connection string |
+| backend | `JWT_SECRET`, `JWT_EXPIRES_IN` | token signing (use a long random secret) |
+| backend | `CLIENT_URL` | allowed frontend origin(s), comma separated (CORS + Socket.IO) |
+| backend | `ADMIN_*` | used only by `npm run seed` |
+| frontend | `VITE_BACKEND_URL` | REST base URL **including** `/api/v1` |
+| frontend | `VITE_SOCKET_URL` | backend origin **without** `/api/v1` |
 
----
+Never commit `.env` files. `.env.example` files contain placeholders only.
 
-## Backend API (Tasks 9-14)
+## Deploy
+1. **MongoDB Atlas** - create a cluster and a database user, allow Render's IPs (or `0.0.0.0/0` while testing), copy the connection string.
+2. **Render (backend)** - new Web Service, root directory `backend`, build `npm install`, start `npm start`. Set `MONGO_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `CLIENT_URL` (your Vercel URL) and `NODE_ENV=production`. Open a Render shell and run `npm run seed` once.
+3. **Vercel (frontend)** - import the repo, root directory `react-frontend`. Set `VITE_BACKEND_URL=https://<render-app>.onrender.com/api/v1` and `VITE_SOCKET_URL=https://<render-app>.onrender.com`. `vercel.json` already rewrites all routes to `index.html`.
+4. Put the live URLs here:
+   - Frontend: _add Vercel URL_
+   - Backend: _add Render URL_
 
-Express + MongoDB (Mongoose) + JWT + Socket.IO. See `backend/README.md` for setup and endpoints,
-`docs/database-schema.md` for the schema/ER diagram, and `docs/postman/` for the Postman collection.
+## Test checklist (tick each box after you have run it)
+- [ ] Import `docs/postman/Course-Management-API.postman_collection.json`, set `baseUrl`, run folders 1 to 8 - all tests green
+- [ ] Student: register, log in, enroll in a course, open its content, mark a lesson and the course complete
+- [ ] Admin: add / edit / delete a course, add modules and lessons, Clear All enrollments
+- [ ] Chat: a student can message an admin and a classmate, not other students; messages arrive in real time
+- [ ] Production: login works from the Vercel URL (no CORS errors), `/api/health` returns OK on Render
 
-```bash
-# backend
-cd backend && npm install && npm run seed && npm run dev
-# frontend
-cd react-frontend && npm install && npm run dev
-```
+## Security notes
+- Passwords are hashed with bcrypt (12 rounds); JWTs are signed with `JWT_SECRET`; role checks run on the server.
+- CORS is limited to `CLIENT_URL`; helmet is enabled; login is limited to 10 attempts / 15 min and the rest of `/api` to 300 requests / 15 min per IP; sockets are limited to 20 messages / 10 s.
+- If a secret was ever committed or shared, rotate it (new Atlas password, new `JWT_SECRET`).

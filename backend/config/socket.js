@@ -5,6 +5,11 @@ const User = require("../models/User");
 const Message = require("../models/Message");
 const Notification = require("../models/Notification");
 const allowedOrigins = require("./allowedOrigins");
+const { canMessage } = require("../utils/chatAccess");
+
+// At most 20 messages per 10 seconds for each socket connection.
+const MESSAGE_LIMIT = 20;
+const MESSAGE_WINDOW_MS = 10000;
 
 function initializeSocket(httpServer) {
   const io = new Server(httpServer, {
@@ -52,8 +57,17 @@ function initializeSocket(httpServer) {
     socket.join(`user:${userId}`);
     console.log("Socket connected:", userId);
 
+    let recentMessages = [];
+
     socket.on("send_message", async (data, ack) => {
       try {
+        const now = Date.now();
+        recentMessages = recentMessages.filter((t) => now - t < MESSAGE_WINDOW_MS);
+        if (recentMessages.length >= MESSAGE_LIMIT) {
+          throw new Error("You are sending messages too quickly. Please slow down.");
+        }
+        recentMessages.push(now);
+
         const { recipientId, text } = data || {};
 
         if (
@@ -69,9 +83,8 @@ function initializeSocket(httpServer) {
           throw new Error("You cannot send a message to yourself");
         }
 
-        const recipient = await User.findById(recipientId).select("_id");
-        if (!recipient) {
-          throw new Error("Recipient not found");
+        if (!(await canMessage(socket.user, recipientId))) {
+          throw new Error("You are not allowed to message this user");
         }
 
         // sender always comes from the authenticated socket, never from the client

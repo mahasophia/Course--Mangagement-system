@@ -3,7 +3,7 @@ import PageShell from "../components/PageShell";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PageCss from "../components/PageCss";
 import { useAuth } from "../auth/AuthContext";
-import { getCourseById } from "../data/coursesStore";
+import { getCourseByIdFromAPI } from "../data/coursesStore";
 import { findEnrollment, markEnrollmentComplete } from "../data/enrollmentsStore";
 import { apiErrorMessage } from "../services/api";
 
@@ -13,7 +13,17 @@ export default function LearnCourse() {
     const [searchParams] = useSearchParams();
     const courseId = searchParams.get("course");
 
-    const course = getCourseById(courseId);
+    const [course, setCourse] = useState(null);
+    const [courseLoaded, setCourseLoaded] = useState(false);
+
+    useEffect(() => {
+        let cancelled = false;
+        getCourseByIdFromAPI(courseId)
+            .then((found) => { if (!cancelled) setCourse(found); })
+            .catch((error) => console.error("Could not load course:", apiErrorMessage(error)))
+            .finally(() => { if (!cancelled) setCourseLoaded(true); });
+        return () => { cancelled = true; };
+    }, [courseId]);
 
     // This student's enrollment for the course, loaded from db.json.
     const [enrollment, setEnrollment] = useState(null);
@@ -56,6 +66,15 @@ export default function LearnCourse() {
     }
 
     // ----- Guard states -----
+    if (!courseLoaded) {
+        return (
+            <PageShell variant="student3">
+                <PageCss href="/css/course_details.css" />
+                <p style={{ margin: "60px auto", textAlign: "center" }}>Loading course...</p>
+            </PageShell>
+        );
+    }
+
     if (!course) {
         return (
             <PageShell variant="student3">

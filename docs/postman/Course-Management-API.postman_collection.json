@@ -27,6 +27,30 @@
     {
       "key": "courseId",
       "value": ""
+    },
+    {
+      "key": "courseId2",
+      "value": ""
+    },
+    {
+      "key": "courseId3",
+      "value": ""
+    },
+    {
+      "key": "courseId4",
+      "value": ""
+    },
+    {
+      "key": "moduleId",
+      "value": ""
+    },
+    {
+      "key": "lessonId",
+      "value": ""
+    },
+    {
+      "key": "enrollmentId",
+      "value": ""
     }
   ],
   "item": [
@@ -887,7 +911,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"courseName\": \"Node.js Basics\",\n  \"courseCode\": \"ND101\",\n  \"instructor\": \"Dr. Priya\",\n  \"duration\": \"6 Weeks\",\n  \"category\": \"Backend\",\n  \"description\": \"Intro to Node\"\n}"
+              "raw": "{\n  \"courseName\": \"Node.js Basics\",\n  \"courseCode\": \"ND101\",\n  \"instructor\": \"Dr. Priya\",\n  \"duration\": \"6 Weeks\",\n  \"category\": \"Backend\",\n  \"level\": \"Beginner\",\n  \"hours\": \"40\",\n  \"topics\": \"Node runtime and event loop, modules and npm, REST APIs with Express, JWT authentication, MongoDB\",\n  \"outcome\": \"Build and secure a REST API with Node.js and Express.\",\n  \"prerequisites\": \"Basic JavaScript\",\n  \"description\": \"Introduction to server-side JavaScript with Node.js.\"\n}"
             }
           },
           "event": [
@@ -898,6 +922,129 @@
                 "exec": [
                   "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
                   "pm.collectionVariables.set('courseId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create course - Python for Beginners (PY101)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseName\": \"Python for Beginners\",\n  \"courseCode\": \"PY101\",\n  \"instructor\": \"Prof. Arun\",\n  \"duration\": \"8 Weeks\",\n  \"category\": \"Programming\",\n  \"level\": \"Beginner\",\n  \"hours\": \"48\",\n  \"topics\": \"Variables and data types, loops, functions, lists and dictionaries, file handling\",\n  \"outcome\": \"Write Python programs from scratch and finish a mini project.\",\n  \"prerequisites\": \"None\",\n  \"description\": \"Start programming from zero with Python.\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('courseId2', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create course - React Fundamentals (RC101)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseName\": \"React Fundamentals\",\n  \"courseCode\": \"RC101\",\n  \"instructor\": \"Ms. Kavya\",\n  \"duration\": \"6 Weeks\",\n  \"category\": \"Frontend\",\n  \"level\": \"Intermediate\",\n  \"hours\": \"36\",\n  \"topics\": \"JSX and components, props and state, hooks, forms, React Router, fetching data\",\n  \"outcome\": \"Build modern user interfaces with React.\",\n  \"prerequisites\": \"HTML, CSS and JavaScript\",\n  \"description\": \"Build modern user interfaces with React.\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('courseId3', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create course - MongoDB Essentials (DB101)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseName\": \"MongoDB Essentials\",\n  \"courseCode\": \"DB101\",\n  \"instructor\": \"Dr. Suresh\",\n  \"duration\": \"4 Weeks\",\n  \"category\": \"Database\",\n  \"level\": \"Beginner\",\n  \"hours\": \"24\",\n  \"topics\": \"Documents and collections, CRUD, indexes, aggregation pipeline, Mongoose schema design\",\n  \"outcome\": \"Design schemas and query MongoDB confidently.\",\n  \"prerequisites\": \"Basic JavaScript\",\n  \"description\": \"Learn NoSQL database design with MongoDB.\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('courseId4', pm.response.json().data._id);"
                 ]
               }
             }
@@ -1018,6 +1165,52 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status is 409\", () => pm.response.to.have.status(409));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Verify all courses (one-time check)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses?limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses?limit=100"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "const list = Array.isArray(body.data) ? body.data : [];",
+                  "const expected = [{\"courseName\": \"Node.js Basics\", \"courseCode\": \"ND101\", \"instructor\": \"Dr. Priya\", \"duration\": \"6 Weeks\", \"category\": \"Backend\", \"level\": \"Beginner\", \"hours\": \"40\", \"topics\": \"Node runtime and event loop, modules and npm, REST APIs with Express, JWT authentication, MongoDB\", \"outcome\": \"Build and secure a REST API with Node.js and Express.\", \"prerequisites\": \"Basic JavaScript\", \"description\": \"Introduction to server-side JavaScript with Node.js.\"}, {\"courseName\": \"Python for Beginners\", \"courseCode\": \"PY101\", \"instructor\": \"Prof. Arun\", \"duration\": \"8 Weeks\", \"category\": \"Programming\", \"level\": \"Beginner\", \"hours\": \"48\", \"topics\": \"Variables and data types, loops, functions, lists and dictionaries, file handling\", \"outcome\": \"Write Python programs from scratch and finish a mini project.\", \"prerequisites\": \"None\", \"description\": \"Start programming from zero with Python.\"}, {\"courseName\": \"React Fundamentals\", \"courseCode\": \"RC101\", \"instructor\": \"Ms. Kavya\", \"duration\": \"6 Weeks\", \"category\": \"Frontend\", \"level\": \"Intermediate\", \"hours\": \"36\", \"topics\": \"JSX and components, props and state, hooks, forms, React Router, fetching data\", \"outcome\": \"Build modern user interfaces with React.\", \"prerequisites\": \"HTML, CSS and JavaScript\", \"description\": \"Build modern user interfaces with React.\"}, {\"courseName\": \"MongoDB Essentials\", \"courseCode\": \"DB101\", \"instructor\": \"Dr. Suresh\", \"duration\": \"4 Weeks\", \"category\": \"Database\", \"level\": \"Beginner\", \"hours\": \"24\", \"topics\": \"Documents and collections, CRUD, indexes, aggregation pipeline, Mongoose schema design\", \"outcome\": \"Design schemas and query MongoDB confidently.\", \"prerequisites\": \"Basic JavaScript\", \"description\": \"Learn NoSQL database design with MongoDB.\"}];",
+                  "expected.forEach(exp => {",
+                  "  pm.test(`${exp.courseCode} saved with all fields`, () => {",
+                  "    const found = list.find(c => c.courseCode === exp.courseCode);",
+                  "    pm.expect(found, `${exp.courseCode} not found`).to.exist;",
+                  "    Object.keys(exp).forEach(k => pm.expect(found[k], `${exp.courseCode}.${k}`).to.eql(exp[k]));",
+                  "  });",
+                  "});",
+                  "pm.test('No duplicate course codes', () => {",
+                  "  const codes = list.map(c => c.courseCode);",
+                  "  pm.expect(new Set(codes).size).to.equal(codes.length);",
+                  "});"
                 ]
               }
             }
@@ -1210,6 +1403,39 @@
       "name": "5. Notifications & messages",
       "item": [
         {
+          "name": "Chat contacts",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/messages/contacts",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "messages",
+                "contacts"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "My notifications",
           "request": {
             "method": "GET",
@@ -1373,6 +1599,719 @@
               ],
               "path": [
                 "health"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "7. Course content, enrollments & progress",
+      "item": [
+        {
+          "name": "Add module (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId2}}/content/modules",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId2}}",
+                "content",
+                "modules"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Module 1: Getting Started\",\n  \"description\": \"Variables, data types and control flow\",\n  \"order\": 1\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "const mods = pm.response.json().data.modules;",
+                  "pm.collectionVariables.set('moduleId', mods[mods.length-1]._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Add lesson (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId2}}/content/modules/{{moduleId}}/lessons",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId2}}",
+                "content",
+                "modules",
+                "{{moduleId}}",
+                "lessons"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Variables and data types\",\n  \"description\": \"Numbers, strings and booleans\",\n  \"order\": 1\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "const mods = pm.response.json().data.modules;",
+                  "const m = mods.find(x => x._id === pm.collectionVariables.get('moduleId'));",
+                  "pm.collectionVariables.set('lessonId', m.lessons[m.lessons.length-1]._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get content - student not enrolled (403)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId2}}/content",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId2}}",
+                "content"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 403\", () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Enroll student in course",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseId\": \"{{courseId2}}\",\n  \"rollNo\": \"21CS101\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set('enrollmentId', pm.response.json().data._id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Enroll again (409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"courseId\": \"{{courseId2}}\",\n  \"rollNo\": \"21CS101\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 409\", () => pm.response.to.have.status(409));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get content - enrolled student",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId2}}/content",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId2}}",
+                "content"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test('Has modules', () => pm.expect(pm.response.json().data.modules).to.be.an('array').that.is.not.empty);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Mark lesson complete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress/{{courseId2}}/lessons/{{lessonId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress",
+                "{{courseId2}}",
+                "lessons",
+                "{{lessonId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test('Progress is 100%', () => pm.expect(pm.response.json().data.progressPercentage).to.equal(100));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "My progress",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Student sets invalid status (400)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments/{{enrollmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments",
+                "{{enrollmentId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"bogus\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 400\", () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Student marks enrollment completed",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments/{{enrollmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments",
+                "{{enrollmentId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+                  "pm.test('Status is completed', () => pm.expect(pm.response.json().data.status).to.equal('completed'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin lists enrollments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Student tries Clear All (403)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{studentToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 403\", () => pm.response.to.have.status(403));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin deletes one enrollment",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments/{{enrollmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments",
+                "{{enrollmentId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin deletes it again (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments/{{enrollmentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments",
+                "{{enrollmentId}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 404\", () => pm.response.to.have.status(404));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Admin Clear All enrollments",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/enrollments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "enrollments"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "8. Cleanup extra courses (optional - lets you re-run the whole collection)",
+      "item": [
+        {
+          "name": "Delete PY101",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId2}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId2}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete RC101",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId3}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId3}}"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete DB101",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{adminToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/courses/{{courseId4}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "courses",
+                "{{courseId4}}"
               ]
             }
           },

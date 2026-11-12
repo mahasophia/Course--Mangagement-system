@@ -4,7 +4,7 @@
 // EditCourse.jsx, AdminDashboard.jsx) goes through this module so that
 // adding or editing a course in one place is immediately visible
 // everywhere else.
-
+import api from "../services/api";
 const STORAGE_KEY = "courses";
 
 // Section/category is now free text typed by the admin (not a fixed
@@ -127,4 +127,112 @@ export function updateCourse(id, updates) {
 export function deleteCourse(id) {
     const list = getCourses();
     writeRaw(list.filter((c) => c.id !== id));
+}
+// ---------------------------------------------------------------------------
+// MongoDB-backed course API (Express backend). Pages should use these.
+// ---------------------------------------------------------------------------
+
+// Courses saved before the dedicated fields existed kept Level/Hours/Topics
+// inside the description text ("Level: Beginner\nTotal Hours: 40 ...").
+function parseLegacyDescription(description = "") {
+    const read = (label) => {
+        const match = String(description).match(new RegExp(`${label}:\\s*(.*)`));
+        return match ? match[1].trim() : "";
+    };
+    return {
+        level: read("Level"),
+        hours: read("Total Hours"),
+        topics: read("Topics"),
+        outcome: read("Learning Outcome"),
+        isLegacy: /Level:|Total Hours:|Topics:|Learning Outcome:/.test(String(description)),
+    };
+}
+
+// "8 Weeks" -> "8" (the UI adds the word "Weeks" itself)
+function weeksFromDuration(duration) {
+    const match = String(duration || "").match(/\d+/);
+    return match ? match[0] : String(duration || "") || "Not specified";
+}
+
+/** Converts a backend course document into the shape the pages use. */
+export function mapApiCourse(course) {
+    const legacy = parseLegacyDescription(course.description);
+    return {
+        id: course._id, // MongoDB id - needed for enrollment and content calls
+        code: course.courseCode,
+        title: course.courseName,
+        category: course.category || "Uncategorized",
+        level: course.level || legacy.level || "Beginner",
+        weeks: weeksFromDuration(course.duration),
+        hours: course.hours || legacy.hours || "Not specified",
+        rating: course.rating || "New",
+        instructor: course.instructor || "Not specified",
+        topics: course.topics || legacy.topics || "",
+        outcome: course.outcome || legacy.outcome || (legacy.isLegacy ? "" : course.description || ""),
+        prerequisites: course.prerequisites || "",
+        description: course.description || "",
+    };
+}
+
+// Fetch courses from MongoDB backend
+export async function getCoursesFromAPI() {
+    const response = await api.get("/courses", { params: { limit: 100 } });
+    const courses = Array.isArray(response.data.data) ? response.data.data : [];
+    return courses.map(mapApiCourse);
+}
+
+/** One course from MongoDB, or null when the id is invalid / not found. */
+export async function getCourseByIdFromAPI(id) {
+    if (!id) return null;
+    try {
+        const response = await api.get(`/courses/${id}`);
+        return mapApiCourse(response.data.data);
+    } catch (error) {
+        if ([400, 404].includes(error?.response?.status)) return null;
+        throw error;
+    }
+}
+
+/** Saves the edit-course form to MongoDB. */
+export async function updateCourseOnAPI(id, form) {
+    const payload = {
+        courseName: form.title,
+        instructor: form.instructor,
+        duration: `${String(form.weeks).trim()} Weeks`,
+        category: form.category,
+        level: form.level,
+        hours: form.hours,
+        rating: form.rating,
+        topics: form.topics,
+        outcome: form.outcome,
+        prerequisites: form.prerequisites,
+    };
+    const response = await api.put(`/courses/${id}`, payload);
+    return mapApiCourse(response.data.data);
+}
+
+export async function deleteCourseOnAPI(id) {
+    await api.delete(`/courses/${id}`);
+}
+
+/**
+ * Modules and lessons for a course. The backend only returns them to enrolled
+ * students and admins, so anyone else (or a course without content) gets [].
+ */
+export async function getCourseModulesFromAPI(courseId) {
+    if (!courseId) return [];
+    try {
+        const response = await api.get(`/courses/${courseId}/content`);
+        const modules = response.data?.data?.modules;
+        if (!Array.isArray(modules)) return [];
+        return [...modules]
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+            .map((module) => ({
+                ...module,
+                lessons: [...(module.lessons || [])].sort((a, b) => (a.order || 0) - (b.order || 0)),
+            }));
+    } catch (error) {
+        if ([401, 403, 404].includes(error?.response?.status)) return [];
+        throw error;
+    }
 }

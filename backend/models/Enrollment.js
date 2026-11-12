@@ -17,6 +17,12 @@ const enrollmentSchema = new mongoose.Schema(
       enum: ["active", "completed", "withdrawn"],
       default: "active"
     },
+    rollNo: {
+      type: String,
+      trim: true,
+      maxlength: 50,
+      default: ""
+    },
     enrolledAt: {
       type: Date,
       default: Date.now

@@ -1,20 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageShell from "../components/PageShell";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PageCss from "../components/PageCss";
-import { deleteCourse, getCourseById, updateCourse } from "../data/coursesStore";
+import { deleteCourseOnAPI, getCourseByIdFromAPI, updateCourseOnAPI } from "../data/coursesStore";
+import { apiErrorMessage } from "../services/api";
 
-function loadInitialCourse(courseId) {
-    if (!courseId) return null;
-    return getCourseById(courseId);
-}
-
+// Loads the course from MongoDB, then renders the form once it is available.
 export default function EditCourse() {
-    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const courseId = searchParams.get("course");
+    const [course, setCourse] = useState(null);
+    const [loaded, setLoaded] = useState(false);
 
-    const [initialCourse] = useState(() => loadInitialCourse(courseId));
+    useEffect(() => {
+        let cancelled = false;
+        getCourseByIdFromAPI(courseId)
+            .then((found) => { if (!cancelled) setCourse(found); })
+            .catch((error) => console.error("Could not load course:", apiErrorMessage(error)))
+            .finally(() => { if (!cancelled) setLoaded(true); });
+        return () => { cancelled = true; };
+    }, [courseId]);
+
+    if (!loaded) {
+        return (
+            <PageShell variant="admin">
+                <PageCss href="/css/edit_courses.css" />
+                <p style={{ margin: "60px auto", textAlign: "center" }}>Loading course...</p>
+            </PageShell>
+        );
+    }
+
+    return <EditCourseForm initialCourse={course} courseId={courseId} />;
+}
+
+function EditCourseForm({ initialCourse, courseId }) {
+    const navigate = useNavigate();
     const notFound = !initialCourse;
 
     const [form, setForm] = useState({
@@ -33,7 +53,7 @@ export default function EditCourse() {
         Array.isArray(initialCourse?.learnItems) && initialCourse.learnItems.length > 0
             ? initialCourse.learnItems
             : initialCourse?.outcome
-                ? [initialCourse.outcome]
+                ? initialCourse.outcome.split("\n").map((line) => line.trim()).filter(Boolean)
                 : []
     );
     const [newLearnItem, setNewLearnItem] = useState("");
@@ -53,33 +73,38 @@ export default function EditCourse() {
         setLearnItems((prev) => prev.filter((_, i) => i !== index));
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         if (!courseId) return;
 
-        updateCourse(courseId, {
-            title: form.title.trim(),
-            instructor: form.instructor.trim(),
-            weeks: form.weeks.trim(),
-            hours: form.hours.trim(),
-            rating: form.rating.trim(),
-            level: form.level,
-            category: form.category.trim(),
-            image: form.image.trim(),
-            topics: form.topics.trim(),
-            prerequisites: form.prerequisites.trim(),
-            learnItems,
-            outcome: learnItems[0] || "",
-        });
-
-        navigate("/courses");
+        try {
+            await updateCourseOnAPI(courseId, {
+                title: form.title.trim(),
+                instructor: form.instructor.trim(),
+                weeks: form.weeks.trim(),
+                hours: form.hours.trim(),
+                rating: form.rating.trim(),
+                level: form.level,
+                category: form.category.trim(),
+                topics: form.topics.trim(),
+                prerequisites: form.prerequisites.trim(),
+                outcome: learnItems.join("\n"),
+            });
+            navigate("/courses");
+        } catch (error) {
+            alert(apiErrorMessage(error));
+        }
     }
 
-    function handleDelete() {
+    async function handleDelete() {
         if (!courseId) return;
         if (!window.confirm("Delete this course? This cannot be undone.")) return;
-        deleteCourse(courseId);
-        navigate("/courses");
+        try {
+            await deleteCourseOnAPI(courseId);
+            navigate("/courses");
+        } catch (error) {
+            alert(apiErrorMessage(error));
+        }
     }
 
     if (notFound) {

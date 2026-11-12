@@ -3,7 +3,7 @@ import PageShell from "../components/PageShell";
 import { Link, useNavigate } from "react-router-dom";
 import PageCss from "../components/PageCss";
 import { useAuth } from "../auth/AuthContext";
-import { getCourses, getSections } from "../data/coursesStore";
+import { getCoursesFromAPI, getSections } from "../data/coursesStore";
 import { addEnrollmentNotification } from "../data/notificationsStore";
 import { addEnrollment, findEnrollment, findEnrollmentIn, getEnrollmentsForStudent } from "../data/enrollmentsStore";
 import { apiErrorMessage } from "../services/api";
@@ -16,7 +16,23 @@ export default function Courses() {
     const { student } = useAuth();
     const navigate = useNavigate();
 
-    const [courses] = useState(() => getCourses());
+    const [courses, setCourses] = useState([]);
+const [courseLoading, setCourseLoading] = useState(true);
+
+useEffect(() => {
+    async function loadCourses() {
+        try {
+            const data = await getCoursesFromAPI();
+            setCourses(data);
+        } catch (error) {
+            console.error("Failed to load courses:", error);
+        } finally {
+            setCourseLoading(false);
+        }
+    }
+
+    loadCourses();
+}, []);
 
     // This student's enrollments, loaded from db.json through the mock API.
     const [enrollments, setEnrollments] = useState([]);

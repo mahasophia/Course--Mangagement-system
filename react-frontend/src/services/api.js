@@ -1,18 +1,33 @@
+
 import axios from "axios";
 
-// Base URL of the json-server mock API (see /mockapi). Override with
-// VITE_API_URL in a .env file if you run it on another host/port.
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:3001",
-    headers: { "Content-Type": "application/json" },
+    baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:5000/api/v1",
+    headers: {
+        "Content-Type": "application/json",
+    },
 });
 
-/** Turns an axios failure into a short, user-facing message. */
+// Add login token to protected API requests
+api.interceptors.request.use((config) => {
+    const token =
+    sessionStorage.getItem("token") ||
+    localStorage.getItem("token");
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+});
+
 export function apiErrorMessage(error) {
     if (error?.isAxiosError && !error.response) {
-        return "Cannot reach the server. Start the mock API (npm start inside the mockapi folder) and try again.";
+        return "Cannot reach the backend. Please start the backend server.";
     }
-    return error?.message || "Something went wrong. Please try again.";
+
+    return error?.response?.data?.message ||
+        error?.message ||
+        "Something went wrong. Please try again.";
 }
 
 export default api;

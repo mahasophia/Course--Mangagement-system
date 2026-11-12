@@ -1,5 +1,5 @@
-// Shared enrollment records, persisted in db.json (collection "enrollments")
-// through the json-server mock API. Centralizing the read/write/status logic
+// Shared enrollment records, stored in MongoDB through the Express backend
+// (/api/v1/enrollments). Centralizing the read/write/status logic
 // here means Courses.jsx (enroll), StudentDashboard.jsx (progress + mark
 // complete), AdminDashboard.jsx and the Learn page all agree on exactly what
 // "enrolled" / "in progress" / "completed" means for a given student.
@@ -8,7 +8,7 @@
 // list so pages can render synchronously from state.
 
 import api from "../services/api";
-import { addCertificate, getCertificateById } from "./certificatesStore";
+import { addCertificate, getCertificatesForStudent } from "./certificatesStore";
 import { addCourseCompletedNotification } from "./notificationsStore";
 
 function normalize(value) {
@@ -43,15 +43,40 @@ export function findEnrollmentIn(list, courseId, courseTitle, student) {
     return list.find((entry) => isSameCourse(entry, courseId, courseTitle) && isSameStudent(entry, student)) || null;
 }
 
-/* ---------- db.json-backed API ---------- */
+/* ---------- MongoDB-backed API ---------- */
+
+// Backend enrollment document -> the shape the pages use.
+// Backend status values are "active" | "completed" | "withdrawn".
+function mapEnrollment(entry) {
+    const email = entry.student?.email || "";
+    const courseId = entry.course?._id || entry.course || null;
+    const certificate = getCertificatesForStudent(email).find((c) => c.courseId === courseId);
+
+    return {
+        ...entry,
+        id: entry._id,
+        courseId,
+        courseName: entry.course?.courseName || "Unknown Course",
+        studentName: entry.student?.name || "",
+        email,
+        status: entry.status === "completed" ? "Completed" : "In Progress",
+        date: entry.enrolledAt ? new Date(entry.enrolledAt).toLocaleDateString() : "",
+        certificateId: certificate?.id || null,
+        rollNo: entry.rollNo || "Not available",
+    };
+}
 
 export async function getAllEnrollments() {
     const { data } = await api.get("/enrollments");
-    return Array.isArray(data) ? data : [];
+    const records = Array.isArray(data.data) ? data.data : [];
+    // Withdrawn enrollments are history, not active enrollments.
+    return records.filter((entry) => entry.status !== "withdrawn").map(mapEnrollment);
 }
 
+// The backend already limits a student to their own enrollments.
 export async function getEnrollmentsForStudent(student) {
-    return filterForStudent(await getAllEnrollments(), student);
+    if (!student) return [];
+    return await getAllEnrollments();
 }
 
 /** Finds this student's enrollment record for a given course, or null. */
@@ -65,22 +90,18 @@ export async function isAlreadyEnrolled(courseId, courseTitle, student) {
 
 /** Records a new enrollment. Resolves to the created entry (with its db id). */
 export async function addEnrollment({ courseId, courseName, studentName, rollNo, email }) {
-    const { data } = await api.post("/enrollments", {
-        courseId,
-        courseName,
-        studentName,
-        rollNo,
-        email: normalize(email) || "student@learnhub.com",
-        status: "In Progress",
-        date: new Date().toLocaleDateString(),
+    const { data } = await api.post("/enrollments", { courseId, rollNo });
+    return mapEnrollment({
+        ...data.data,
+        course: { _id: courseId, courseName },
+        student: { name: studentName, email: normalize(email) },
     });
-    return data;
 }
 
 /**
- * Marks an enrollment complete, minting a certificate (or reusing one if
- * this got called twice) and firing a "course completed" notification.
- * `target` is an enrollment record as returned by this store (it has an id).
+ * Marks an enrollment complete, minting a certificate (or reusing the one this
+ * browser already has for the course) and firing a "course completed"
+ * notification. `target` is an enrollment as returned by this store.
  * Resolves to the updated entry, or null if the record no longer exists.
  */
 export async function markEnrollmentComplete(target) {
@@ -88,39 +109,41 @@ export async function markEnrollmentComplete(target) {
 
     let entry;
     try {
-        ({ data: entry } = await api.get(`/enrollments/${target.id}`));
+        const { data } = await api.get(`/enrollments/${target.id}`);
+        entry = mapEnrollment(data.data);
     } catch (error) {
         if (error?.response?.status === 404) return null;
         throw error;
     }
 
-    let certRecord = entry.certificateId ? getCertificateById(entry.certificateId) : null;
-    if (entry.status === "Completed" && certRecord) return entry; // already done
+    if (entry.status === "Completed" && entry.certificateId) return entry; // already done
 
-    if (!certRecord) {
-        certRecord = addCertificate({
+    if (entry.status !== "Completed") {
+        await api.patch(`/enrollments/${entry.id}`, { status: "completed" });
+    }
+
+    let certificateId = entry.certificateId;
+    if (!certificateId) {
+        const certificate = addCertificate({
             courseId: entry.courseId,
             courseName: entry.courseName,
             studentName: entry.studentName,
             rollNo: entry.rollNo,
             email: entry.email,
         });
+        certificateId = certificate.id;
     }
 
-    const { data: updated } = await api.patch(`/enrollments/${entry.id}`, {
-        status: "Completed",
-        certificateId: certRecord.id,
+    addCourseCompletedNotification({
+        courseName: entry.courseName,
+        email: entry.email,
+        certId: certificateId,
     });
 
-    addCourseCompletedNotification({
-        courseName: updated.courseName,
-        email: updated.email,
-        certId: updated.certificateId,
-    });
-    return updated;
+    return { ...entry, status: "Completed", certificateId };
 }
 
+// Admin only: removes every enrollment record in one request.
 export async function clearAllEnrollments() {
-    const list = await getAllEnrollments();
-    await Promise.all(list.map((entry) => api.delete(`/enrollments/${entry.id}`)));
+    await api.delete("/enrollments");
 }

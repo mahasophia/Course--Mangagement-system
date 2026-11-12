@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PageCss from "../components/PageCss";
 import { useAuth } from "../auth/AuthContext";
 import { getEnrollmentsForStudent, markEnrollmentComplete } from "../data/enrollmentsStore";
-import { apiErrorMessage } from "../services/api";
+import api, { apiErrorMessage } from "../services/api";
 
 export default function StudentDashboard() {
     const { student } = useAuth();
@@ -13,6 +13,15 @@ export default function StudentDashboard() {
     // Load this student's enrollments from db.json (through the mock API) and
     // keep them in state so marking a course complete updates the UI immediately.
     const [enrollments, setEnrollments] = useState([]);
+    const [courseRequests, setCourseRequests] = useState([]);
+
+    useEffect(() => {
+        let cancelled = false;
+        api.get("/course-requests")
+            .then((response) => { if (!cancelled) setCourseRequests(response.data.data || []); })
+            .catch((error) => console.error("Could not load your course requests:", apiErrorMessage(error)));
+        return () => { cancelled = true; };
+    }, []);
 
     useEffect(() => {
         let cancelled = false;
@@ -71,11 +80,37 @@ export default function StudentDashboard() {
                             <i className="fa-solid fa-magnifying-glass"></i>
                             Explore Courses
                         </Link>
+                        <Link to="/add-course" className="db-explore-btn">
+                            <i className="fa-solid fa-paper-plane"></i>
+                            Request a Course
+                        </Link>
                     </div>
                 </div>
             </div>
             {/* ================= MAIN CONTENT ================= */}
             <main className="db-main">
+                <section className="db-section db-section--full" style={{marginBottom: "24px"}}>
+                    <div className="db-section-header" style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px"}}>
+                        <h2><i className="fa-solid fa-paper-plane"></i> My Course Requests</h2>
+                        <Link to="/add-course" className="db-explore-btn">Request Another Course</Link>
+                    </div>
+                    {courseRequests.length === 0 ? (
+                        <p>You have not submitted any course requests yet.</p>
+                    ) : (
+                        <div style={{overflowX: "auto"}}>
+                            <table className="admin-table" style={{width: "100%"}}>
+                                <thead><tr><th>Course</th><th>Course Code</th><th>Requested On</th><th>Status</th><th>Admin Note</th></tr></thead>
+                                <tbody>{courseRequests.map((request) => (
+                                    <tr key={request._id}>
+                                        <td>{request.courseName}</td><td>{request.courseCode}</td>
+                                        <td>{new Date(request.createdAt).toLocaleDateString()}</td>
+                                        <td>{request.status}</td><td>{request.adminNote || "-"}</td>
+                                    </tr>
+                                ))}</tbody>
+                            </table>
+                        </div>
+                    )}
+                </section>
                 {/* ===== OVERALL PROGRESS ===== */}
                 <section className="db-section db-section--full" style={{marginBottom: "24px"}}>
                     <div className="db-section-header">

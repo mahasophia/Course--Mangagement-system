@@ -16,7 +16,10 @@ function authMiddleware(req, res, next) {
       algorithms: ["HS256"]
     });
 
-    req.user = decoded; // { sub, email, role, iat, exp }
+   req.user = {
+  ...decoded,
+  id: decoded.sub
+}; // { sub, email, role, iat, exp }
     next();
   } catch (error) {
     return res.status(401).json({
