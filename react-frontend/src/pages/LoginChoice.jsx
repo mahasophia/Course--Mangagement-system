@@ -28,10 +28,10 @@ export default function LoginChoice() {
                         <h2>Student</h2>
                         <p>Access your courses, track your progress and continue learning.</p>
                         <div className="choice-card-btns">
-                            <a href="stu-login.html" className="choice-btn-primary">
+                            <Link to="/stu-login.html" className="choice-btn-primary">
                                 <i className="fa-solid fa-right-to-bracket"></i>
                                 Student Login
-                            </a>
+                            </Link>
                             <Link to="/register" className="choice-btn-secondary">
                                 <i className="fa-solid fa-user-plus"></i>
                                 Student Registration

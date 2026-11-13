@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PageCss from "../components/PageCss";
 import LegacyScript from "../components/LegacyScript";
 
@@ -28,7 +29,7 @@ export default function ForgotPassword() {
                             </form>
                             <p className="auth-footer-text">
                                 Remembered your password?
-                                <a href="stu-login.html">Login here</a>
+                                <Link to="/stu-login.html">Login here</Link>
                             </p>
                         </div>
                     </div>
