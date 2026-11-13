@@ -1,7 +1,9 @@
+
 import { io } from "socket.io-client";
 
 const SOCKET_URL =
-  import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+  import.meta.env.VITE_SOCKET_URL ||
+  "https://course-mangagement-system-1.onrender.com";
 
 export function createSocket() {
   const token =
